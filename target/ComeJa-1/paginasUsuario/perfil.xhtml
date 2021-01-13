@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title"><title>ComeJá - Perfil</title></ui:define>
+    <ui:define name="content">
+         <f:event type="preRenderView" listener="#{pessoaBean.carregarMobile(loginBean.pessoaAtual.idPessoa)}" />
+        <p:growl autoUpdate="true"></p:growl>
+        <div>
+            <h:form id="formCliente">
+                <div>
+                    <br></br>
+                    <h3>Perfil Cliente</h3>
+                    <div class="row">
+                        <div class="col s12 m12 l12">
+                            <p:inputText type="hidden" id="idPessoa" value="#{pessoaBean.pessoa.idPessoa}"/>
+                            <i class="material-icons prefix">account_circle</i>
+                            <h:outputLabel for="nome" value="Nome"/>
+                            <p:inputText required="true" id="nome" value="#{pessoaBean.pessoa.nomeFantasiaPessoa}"/>
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m6 l6">
+                            <i class="material-icons prefix">phone</i> 
+                            <h:outputLabel for="celular" value="Telefone Celular"/>
+                            <p:inputMask  
+                                value="#{pessoaBean.pessoa.celularPessoa}"
+                                mask="(99) 99999-9999"
+                                required="true"
+                                id="celular"
+                                />
+
+                        </div>
+                        <div class="col s12 m6 l6">
+                            <i class="material-icons prefix">phone</i>
+                            <h:outputLabel for="telefone" value="Telefone Fixo"/>
+                            <p:inputMask  
+                                id="telefone"
+                                value="#{pessoaBean.pessoa.telefonePessoa}"
+                                mask="(99) 9999-9999" />
+
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class=" col s12">
+                            <i class="material-icons prefix">email</i>  
+                            <h:outputLabel for="email" value="Email"/>
+                            <p:inputText id="email" type="email" value="#{pessoaBean.pessoa.emailPessoa}"/>
+
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <p>Data Nascimento</p>
+                            <p:inputMask required="true" mask="99/99/9999" id="dataNasc" value="#{pessoaBean.dataNascimento}"/>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">  
+                            <i class="material-icons prefix">https</i>   
+                            <h:outputLabel for="senha" value="Senha"/>
+                            <p:inputText type="password" required="true" value="#{pessoaBean.senha}" id="senha"/>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">  
+                            <i class="material-icons prefix">https</i>   
+                            <h:outputLabel for="confirmasenha" value="Senha"/>
+                            <p:inputText type="password" required="true" value="#{pessoaBean.confirmasenha}" id="confirmasenha"/>
+
+                        </div>
+                    </div>
+                    <div class="row card-action center-align red">
+                        <div class="col s12 ">
+                            <p:commandButton  action="#{pessoaBean.atualizarPessoa()}"  value="Atualizar Dados"/>
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+
+
+
+
+
+    </ui:define>
+
+</ui:composition>

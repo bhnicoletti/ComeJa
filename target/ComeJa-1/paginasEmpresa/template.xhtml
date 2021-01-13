@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <link type="text/css" rel="stylesheet" href="../resources/css/combined.min.css"  media="screen,projection"/>            
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="google-site-verification" content="p3_fa_FCiN5j8vbUQLxCJttMixJmiikQTiNRX7mXPv4" />
+        <meta name="description" content="Aplicação para fazer pedidos de produtos alimentícios online."/> 
+        <meta name="keywords" content="comeja, comeja jales, comida online jales, pedido de comida online, comida online"/> 
+        <meta name="author" content="Bruno Nicoletti"/> 
+        <link rel="apple-touch-icon" sizes="57x57" href="../resources/imagens/apple-icon-57x57.png"/>
+        <link rel="apple-touch-icon" sizes="60x60" href="../resources/imagens/apple-icon-60x60.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../resources/imagens/apple-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="76x76" href="../resources/imagens/apple-icon-76x76.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../resources/imagens/apple-icon-114x114.png"/>
+        <link rel="apple-touch-icon" sizes="120x120" href="../resources/imagens/apple-icon-120x120.png"/>
+        <link rel="apple-touch-icon" sizes="144x144" href="../resources/imagens/apple-icon-144x144.png"/>
+        <link rel="apple-touch-icon" sizes="152x152" href="../resources/imagens/apple-icon-152x152.png"/>
+        <link rel="apple-touch-icon" sizes="180x180" href="../resources/imagens/apple-icon-180x180.png"/>
+        <link rel="icon" type="image/png" sizes="192x192"  href="../resources/imagens/android-icon-192x192.png"/>
+        <link rel="icon" type="image/png" sizes="32x32" href="../resources/imagens/favicon-32x32.png"/>
+        <link rel="icon" type="image/png" sizes="96x96" href="../resources/imagens/favicon-96x96.png"/>
+        <link rel="icon" type="image/png" sizes="16x16" href="../resources/imagens/favicon-16x16.png"/>
+        <link rel="manifest" href="../resources/imagens/manifest.json"/>
+        <meta name="msapplication-TileColor" content="#ffffff"/>
+        <meta name="msapplication-TileImage" content="../resources/imagens/ms-icon-144x144.png"/>
+        <meta name="theme-color" content="#ffffff"/>
+        <title>ComeJá - Pedido de Comida Online</title>
+        <style>
+            .sombra-6 {text-shadow:#000 -1px -1px 2px};           
+        </style>
+    </h:head>
+
+    <h:body>
+        <div id="fb-root"></div>
+        <script>(function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id))
+                    return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&amp;version=v2.6";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+        <input id="logado" type="hidden" hidden="hidden"></input>
+        <div id="top">
+            <ui:insert name="top">
+                <nav>
+                    <div class="nav-wrapper red ">
+                        <p:link class="left brand-logo hide-on-small-only" style="padding: 0px 0px 0px 50px" outcome="home.jsf">
+                            <p:graphicImage width="140" height="70" library="imagens" name="logo.png"/>
+                        </p:link>
+                        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons white-text">menu</i></a>
+                        <ul class="side-nav" id="mobile-demo">
+                            <li><p:link class="black-text" outcome="admProduto.jsf" value="Produtos"></p:link></li>  
+                            <li><p:link class="black-text" outcome="listaVenda.jsf" value="Consultar Vendas"></p:link></li>
+                            <li><p:link class="black-text" outcome="relatorioVenda.jsf" value="Relatório de Vendas"></p:link></li>
+                            <li><p:link class="black-text" outcome="admIngrediente.jsf" value="Ingredientes"></p:link></li>
+                        </ul>
+                        <ul class="right">    
+                            <li>
+                                <button data-target="modalLogin" class="btn modal-trigger"><i class="white-text material-icons prefix">account_circle</i></button> 
+                            </li>
+                        </ul>
+                        <div class="modal" id="modalLogin" style="width: 330px">  
+                            <h:form>
+                                <div class="modal-content" style="color: #000">
+                                    <div class="row">
+                                        <div class="col s12">
+                                            <h5>Login: </h5>
+                                            <h:outputText value="#{loginBean.pessoaAtual.nomeFantasiaPessoa}"></h:outputText>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s12 center-align">        
+                                            <p:link class="blue-text" outcome="admEmpresa.jsf" value="Ver Perfil"></p:link>
+                                            <br></br>
+                                            <p:commandButton value="Sair" action="#{loginBean.deslogar()}" />                                
+                                        </div>                                    
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                        
+                        <ul class="right hide-on-med-and-down"> 
+                            <li><p:link outcome="admProduto.jsf" value="Produtos"></p:link></li>
+                            <li><p:link outcome="listaVenda.jsf" value="Consultar Vendas"></p:link></li>
+                            <li><p:link outcome="relatorioVenda.jsf" value="Relatório de Vendas"></p:link></li>
+                            <li><p:link outcome="admIngrediente.jsf" value="Ingredientes"></p:link></li>
+                        </ul>                       
+
+
+                    </div> 
+                </nav>
+            </ui:insert>
+        </div>
+        <div id="content" class="center_content grey lighten-5 col s12">
+            <ui:insert name="content">Content</ui:insert>
+        </div>
+        <div id="bottom">
+            <ui:insert name="bottom">
+                <footer class="page-footer red">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col l6 s12">
+                                <h5 class="white-text">Informações de Contato</h5>
+                                <p class="white-text text-lighten-4">Para entrar em contato basta enviar um email.<br>
+                                        contato@comeja.com.br
+                                    </br></p>
+                                <div class="fb-page"
+                                     data-href="https://www.facebook.com/comejaoficial/" 
+                                     data-tabs="timeline" data-width="300" data-height="100" data-small-header="false"
+                                     data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+                                    <blockquote cite="https://www.facebook.com/comejaoficial/" class="fb-xfbml-parse-ignore">
+                                        <a href="https://www.facebook.com/comejaoficial/">ComeJá</a></blockquote></div>
+                            </div>
+                            <div class="col l4 offset-l2 s12">
+                                <h5 class="white-text">Links</h5>
+                                <ul>
+
+                                    <li><a class="white-text text-lighten-3" href="informacoes.jsf">Informações</a></li>
+                                    <li><a class="white-text text-lighten-3" href="../paginasUsuario/home.jsf">Área Usuário</a></li>
+                                    <li><a class="white-text text-lighten-3" href="../paginasADM/home.jsf">Área ADM</a></li>
+                                    <li><a class="white-text text-lighten-3" href="https://play.google.com/store/apps/details?id=br.com.comeja.comejaempresas">APP ComeJá <p:graphicImage width="30" height="30" library="imagens" name="android-icon.png"/></a></li>
+                                    <br></br>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-copyright">
+                        <div class="container">
+                            © 2017 Copyright - ComeJá - Todos os direitos reservados / Desenvolvido por Bruno Nicoletti                         
+                        </div>
+                    </div>
+                </footer>
+            </ui:insert>
+        </div>
+        <script type="text/javascript" src="../resources/js/materialize.min.js"></script>
+        <script type="text/javascript">
+           $(document).ready(function () {
+
+                $(".button-collapse").sideNav();
+                $(".dropdown-button").dropdown();
+                $("button").removeClass("ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only");
+                $("button").addClass("waves-light btn btn-large red white-text");                
+                $('h2').addClass('red-text center-align');
+                $('h3').addClass('red-text center-align');
+                $('h5').addClass('red-text');
+                $('label').addClass('black-text');
+                $('i').addClass('red-text');
+                $('.modal-trigger').leanModal();
+                $("th").css("border", "0");
+                $("table").css("border", "0");
+                $("button").mouseover(function () {
+                    $('button').removeClass("ui-state-hover");
+                });
+
+
+            });
+            function estilo() {
+                $("button").removeClass("ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only");
+                $("button").addClass("waves-light btn btn-large red white-text");
+               
+                $("button").mouseover(function () {
+                    $('button').removeClass("ui-state-hover");
+                });               
+                $("th").css("border", "0");
+            }
+            function estiloTabela() {
+                $("button").removeClass("ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only");
+                $("button").addClass("waves-light btn btn-large red white-text");                
+                $('label').addClass('black-text');
+                $("th").css("border", "0");
+                $("table").css("border", "0");
+                $("button").mouseover(function () {
+                    $('button').removeClass("ui-state-hover");
+                });
+            }
+            function abreModal() {
+                $('#modal').openModal();
+
+            }
+            function fechaModal() {
+                $('#modal').closeModal();
+
+            }
+            function abreModalFicha() {
+
+                $('#modalFicha').openModal();
+                document.getElementById('#framemod').contentDocument.location.reload(true);
+
+            }
+            function refazMascara() {
+                $('label').addClass('black-text');
+            }
+            function abreModalEndereco() {
+                $('#modalEndereco').openModal();
+
+            }
+            function fechaModalEndereco() {
+                $('#modalEndereco').closeModal()();
+
+            }
+            function abreModalCliente() {
+                $('#modalCliente').openModal();
+
+            }
+            function fechaModalCliente() {
+                $('#modalCliente').closeModal()();
+
+            }
+            function abreModalItens() {
+                $('#modalitens').openModal();
+            }
+
+            function imprimirVenda() {
+                var conteudo = document.getElementById('FichaVenda').innerHTML,
+                        tela_impressao = window.open('about:blank');
+
+                tela_impressao.document.write(conteudo);
+                tela_impressao.window.print();
+                tela_impressao.window.close();
+            }
+        </script>
+    </h:body>
+
+</html>

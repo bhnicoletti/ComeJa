@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <p:growl autoUpdate="true"></p:growl>
+        <br></br>
+        <div class="row">
+            <div class="col s12">
+                <h3>Seja Bem Vindo ao ComeJá</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m6 l6">
+                <h:form>
+                    <h:outputLabel value="Tempo para praparo"/>
+                    <p:inputText value="#{loginBean.pessoaAtual.tempoPreparo}"/>
+                    <br></br>
+                    <h:outputLabel value="Horário de Funcionamento"/>
+                    <p:inputText value="#{loginBean.pessoaAtual.horarioFuncionamento}"/>
+                    <br></br>
+                    <h:outputLabel value="Observações"/>
+                    <p:inputText value="#{loginBean.pessoaAtual.obs}"/>
+                    <br></br>
+                    <p:commandButton value="Atualizar" action="#{pessoaBean.atualizarEmpresa()}"/>
+                </h:form>
+            </div>
+            <div class="col s12 m6 l6">
+                <h:form>
+                <p>Pedidos Ativos: </p>
+                <p:poll listener="#{vendaBean.novasVendasMobile()}" interval="10" update="notificacao" >
+
+                    <p:column>
+                        <p:outputLabel id="notificacao" value="#{vendaBean.novasVendas} Vendas novas para entregar"></p:outputLabel>
+                        <br></br>
+                        <p:link outcome="listaVendaEntregas" value="Ver vendas para entregar"/> 
+                    </p:column>
+
+                </p:poll>
+                </h:form>
+            </div>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

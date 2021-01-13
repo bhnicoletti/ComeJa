@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="form1">
+            <p:growl autoUpdate="true" showDetail="true"></p:growl>
+            <div class="row col s12 m12 l12">
+                <div class="row">
+                    <div class="col s12">
+                        <h3>Ingredientes - ComeJá</h3>
+                    </div>
+                </div>
+
+                <div class="modal" id="modal">                        
+                    <div class="modal-content" style="color: #000; input{background-color: yellow};">
+                        <div class="row">
+                            <div class="col s12">
+                                <h3>Cadastro de Ingrediente</h3>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <h:outputText id="id" value="ID: #{ingredienteBean.ingrediente.idIngrediente}"></h:outputText>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <p>Titulo</p>
+                                    <p:inputText id="titulo" value="#{ingredienteBean.ingrediente.nomeIngrediente}"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <p>Adicional?</p>
+                                    <p:selectBooleanCheckbox id="adicional" value="#{ingredienteBean.ingrediente.adicional}">
+                                        <p:ajax update="valor" />
+                                    </p:selectBooleanCheckbox>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">    
+                                    <p>Valor</p>
+                                    <p:inputText class="black-text" id="valor" type="number" label="Valor" disabled="#{ingredienteBean.ingrediente.adicional?false:true}" value="#{ingredienteBean.ingrediente.valorAdicional}">
+                                        
+                                    </p:inputText>
+                                </div>
+                            </div>
+
+                            <div class="row" style="text-align: center;">
+                                <div class="input-field col s12">                                        
+                                    <p:commandButton update="listaIngrediente" value="Salvar" action="#{ingredienteBean.salvar}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                    <div class="input-field col s12 m8 l8">
+                        <h:outputLabel value="Filtrar"/>
+                        <p:inputText value="#{listaIngredienteBean.filtro.descricao}"/>                        
+                    </div>
+                    <div class="col s12 m4 l4">
+                        <p:commandButton value="Consultar" update="listaIngrediente"/>
+                    </div>
+                    <div class="col s12 center-align">
+                        <p:dataTable emptyMessage="Nenhum ingrediente encontrado" value="#{listaIngredienteBean.model}" paginator="true" lazy="true" rows="5" id="listaIngrediente" styleClass=".ui-datatable-hor-scroll"
+                                     tableStyle="table-layout:auto;width:100%;" var="ingrediente">
+                           
+                            <p:column headerText="Nome" priority="1">
+                                <h:outputText value="#{ingrediente.nomeIngrediente}"></h:outputText>
+                            </p:column>
+                            <p:column headerText="Adicional?" priority="3">
+                                <h:outputText value="#{ingrediente.adicional?'Sim':'Não'}"></h:outputText>
+                            </p:column>
+                            <p:column headerText="Valor Adicional" priority="2">
+                                <h:outputText value="#{ingrediente.valorAdicional}">
+                                <f:convertNumber maxFractionDigits="2" currencySymbol="R$" type="currency" minFractionDigits="2" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Ações" priority="1">                            
+                                <p:commandButton update=":form1:id, :form1:titulo, :form1:adicional, :form1:valor listaIngrediente" ajax="true" value="Carrega" action="#{ingredienteBean.carregar(ingrediente)}"/>
+                                <p:commandButton update="listaIngrediente" action="#{ingredienteBean.deletar(ingrediente.idIngrediente)}" value="Excluir"/>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+               
+
+                <br></br>
+                <br></br>
+                <div class="row col s12" align="right">
+                    <p:commandButton update=":form1:id, :form1:titulo, :form1:adicional, :form1:valor listaIngrediente" ajax="true" value="Adicionar" action="#{ingredienteBean.limparCampos()}"/>
+                </div>
+
+
+
+
+
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

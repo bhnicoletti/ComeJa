@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title"><title>ComeJá - #{pessoaBean.pessoa.nomeFantasiaPessoa}</title></ui:define>
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="idEmpresa" value="#{pessoaBean.id}" />
+        </f:metadata>
+        <f:event type="preRenderView" listener="#{pessoaBean.carregar()}" />
+        <p:growl autoUpdate="true"></p:growl>
+        
+
+        <nav>
+            <div class="nav-wrapper">
+                <div class="col s12 center-align">
+                    <a href="#{pessoaBean.pessoa.categoriaPessoa.toLowerCase()}s.jsf" class="breadcrumb">#{pessoaBean.pessoa.categoriaPessoa}</a>  
+                    <a href="listaProdutos.jsf?idEmpresa=#{pessoaBean.pessoa.idPessoa}" class="breadcrumb">#{pessoaBean.pessoa.nomeFantasiaPessoa}</a> 
+                </div>
+            </div>
+        </nav>
+        <div class="row center-align">
+            <h:form id="formPessoa">
+                <div class="col s12 m6 l6">
+                    <p:graphicImage class="circle responsive-img" width="300" height="300" value="../imagens/#{pessoaBean.pessoa.imagem}" />
+                </div>
+                <div class="col s12 m6 l6 center-align">
+
+                    <h5><h:outputText value="#{pessoaBean.pessoa.nomeFantasiaPessoa}"/></h5>
+                    <h6 class="center-align"><h:outputText value="#{pessoaBean.pessoa.telefonePessoa}"/> </h6>
+                    <h6 class="center-align"><h:outputText value="#{pessoaBean.pessoa.celularPessoa}"/></h6>
+                    <p class="center-align">Logradouro: <h:outputText value="#{pessoaBean.pessoa.enderecos.get(0).ruaEndereco}"/>, Nº: <h:outputText value="#{pessoaBean.pessoa.enderecos.get(0).numeroEndereco}"/>
+                        <br></br>
+                        Bairro: <h:outputText value="#{pessoaBean.pessoa.enderecos.get(0).bairroEndereco}"/>, <h:outputText value="#{pessoaBean.pessoa.enderecos.get(0).cidadeEndereco}"/> -<h:outputText value="#{pessoaBean.pessoa.enderecos.get(0).estadoEndereco}"/>
+                        <br></br>
+                        Complemento: <h:outputText value="#{pessoaBean.pessoa.enderecos.get(0).complementoEndereco}"/>
+                    </p>
+
+                    <p  class="center-align"><h:outputText value="Tempo Preparo: #{pessoaBean.pessoa.tempoPreparo}"/></p>
+                    <p  class="center-align"><h:outputText value="Valor Entrega: #{pessoaBean.pessoa.valorEntrega}0"/></p>
+                    <p  class="center-align"><h:outputText value="Horário Funcionamento: #{pessoaBean.pessoa.horarioFuncionamento}"/></p>
+                    <p  class="center-align"><h:outputText value="Observações: #{pessoaBean.pessoa.obs}"/></p>
+
+
+                </div>
+            </h:form>
+        </div>
+        <div class="row">
+            <div class="col s0 m0 l1">
+                <br></br></div>
+            <div class="col s12 m12 l10">
+                <h:form>
+                    <h:selectOneRadio converter="categoriaConverter" value="#{listaProdutoBean.filtro.categoriaProduto}">
+                        <f:selectItems value="#{pessoaBean.pessoa.categorias}" var="categoria" itemValue="#{categoria}" itemLabel="#{categoria.tituloCategoria}"/>                    
+                    </h:selectOneRadio>
+                    <p:commandButton update="listaProdutos" value="Filtrar" process="@form"/>
+                    <br></br>
+                    <p:dataGrid  class="pagination" id="listaProdutos" layout="grid" value="#{listaProdutoBean.model}" columns="3" paginator="true" lazy="true" rows="6" var="produto" emptyMessage="Nenhum produto encontrado">
+
+
+
+                        <div class="card" >
+
+                            <div class="card-content white-text center-align" style="height: 100px">
+                                <h5 class="center-align"><h:outputText value="#{produto.nomeProduto}"/></h5>                        
+                            </div>
+                            <div class="row center-align" >
+                                <p:graphicImage height="130" width="130" value="../imagens/#{produto.imagemProduto}"/>
+                                <br></br>
+                                <br></br>
+                                <div class="card-action center-align  red">
+                                    <p:commandButton value="MonteJá" action="#{vendaBean.carregarMobile(produto.idProduto)}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </p:dataGrid>
+                </h:form>
+            </div>
+            <div class="col s0 m0 l1"><br></br></div>
+        </div>
+
+
+
+    </ui:define>
+
+</ui:composition>

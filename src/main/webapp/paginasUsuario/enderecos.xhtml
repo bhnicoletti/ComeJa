@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title"><title>ComeJá - Endereços</title></ui:define>
+    <ui:define name="content">
+        <p:growl autoUpdate="true"></p:growl>
+        
+
+
+       <div id="enderecos" class="col s12">
+                <h:form id="formlistaEndereco">
+                    <p:dataGrid id="listaEnderecos"  emptyMessage="Nenhum endereço cadastrado" layout="grid" columns="1" value="#{loginBean.pessoaAtual.enderecos}" var="endereco">
+                        <div class="row">
+                            <div class="card ">
+                                <div class="card-content white-text center-align">
+                                    <p class="card-title red-text center-align">Endereço</p>                                       
+                                    <p class="center-align black-text">Logradouro: <h:outputText value="#{endereco.ruaEndereco}"/>, Nº: <h:outputText value="#{endereco.numeroEndereco}"/>
+                                        <br></br>
+                                        Bairro: <h:outputText value="#{endereco.bairroEndereco}"/>, <h:outputText value="#{endereco.cidadeEndereco}"/> -<h:outputText value="#{endereco.estadoEndereco}"/>
+
+                                    </p>
+
+                                    <div class="card-action center-align red">
+                                        <p:commandButton value="Remover" action="#{pessoaBean.removerEndereco(endereco)}"/>
+                                        <p:commandButton value="Atualizar" update="formEndereco:idEndereco ,formEndereco:rua, formEndereco:numero, formEndereco:bairro, formEndereco:cidade, formEndereco:complemento, formEndereco:cep, formEndereco:estadoEndereco" action="#{pessoaBean.carregarEndereco(endereco)}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p:dataGrid>
+                    <p:commandButton value="Adicionar Novo" update="formEndereco:idEndereco ,formEndereco:rua, formEndereco:numero, formEndereco:bairro, formEndereco:cidade, formEndereco:estadoEndereco, formEndereco:complemento, formEndereco:cep" action="#{pessoaBean.novoEndereco()}"/>
+                </h:form>
+            </div>
+        
+        
+        <div class="modal" id="modalEndereco">
+            <h:form id="formEndereco">
+                <div class="modal-content">
+                    <p:inputText type="hidden" id="idEndereco" value="#{pessoaBean.endereco.idEndereco}"/>
+                    <div class="row">
+                        <h5 class="center-align"><i class="material-icons prefix">my_location</i>&nbsp;&nbsp;&nbsp;Endereço</h5>
+                    </div>
+                    <div class="row">
+                        <div class=" col s12 m6 l6">
+                            <h:outputLabel value="Logradouro"/>
+                            <p:inputText id="rua" value="#{pessoaBean.endereco.ruaEndereco}" />
+
+                        </div>
+                        <div class=" col s12 m6 l6">
+                            <h:outputLabel value="Número"/>
+                            <p:inputText  id="numero" value="#{pessoaBean.endereco.numeroEndereco}" />
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class=" col s12 m6 l6">
+                            <h:outputLabel value="Bairro"/>
+                            <p:inputText id="bairro" value="#{pessoaBean.endereco.bairroEndereco}" />
+
+                        </div>
+                        <div class=" col s12 m6 l6">
+                            <h:outputLabel value="Cidade"/>
+                            <p:inputText id="cidade" value="#{pessoaBean.endereco.cidadeEndereco}" />
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6 l6 ">   
+                            <p:selectOneListbox value="#{pessoaBean.endereco.estadoEndereco}" label="Estados" id="estadoEndereco" >
+                                <f:selectItem itemLabel="Acre" itemValue="AC" />
+                                <f:selectItem itemLabel="Alagoas" itemValue="AL" />
+                                <f:selectItem itemLabel="Amapá" itemValue="AP" />
+                                <f:selectItem itemLabel="Amazonas" itemValue="AM" />
+                                <f:selectItem itemLabel="Bahia" itemValue="BA" />
+                                <f:selectItem itemLabel="Ceará" itemValue="CE" />
+                                <f:selectItem itemLabel="Distrito Federal" itemValue="DF" />
+                                <f:selectItem itemLabel="Goiás" itemValue="GO" />
+                                <f:selectItem itemLabel="Espírito Santo" itemValue="ES" />
+                                <f:selectItem itemLabel="Maranhão" itemValue="MA" />
+                                <f:selectItem itemLabel="Mato Grosso" itemValue="MT" />
+                                <f:selectItem itemLabel="Mato Grosso do Sul" itemValue="MS" />
+                                <f:selectItem itemLabel="Minas Gerais" itemValue="MG" />
+                                <f:selectItem itemLabel="Pará" itemValue="PA" />
+                                <f:selectItem itemLabel="Paraiba" itemValue="PB" />
+                                <f:selectItem itemLabel="Paraná" itemValue="PR" />
+                                <f:selectItem itemLabel="Pernambuco" itemValue="PE" />
+                                <f:selectItem itemLabel="Piauí" itemValue="PI" />
+                                <f:selectItem itemLabel="Rio de Janeiro" itemValue="RJ" />
+                                <f:selectItem itemLabel="Rio Grande do Norte" itemValue="RN" />
+                                <f:selectItem itemLabel="Rio Grande do Sul" itemValue="RS" />
+                                <f:selectItem itemLabel="Rondônia" itemValue="RO" />
+                                <f:selectItem itemLabel="Rorâima" itemValue="RR" />
+                                <f:selectItem itemLabel="São Paulo" itemValue="SP" />
+                                <f:selectItem itemLabel="Santa Catarina" itemValue="SC" />
+                                <f:selectItem itemLabel="Sergipe" itemValue="SE" />
+                                <f:selectItem itemLabel="Tocantins" itemValue="TO" />
+                            </p:selectOneListbox>
+                        </div>
+                        <div class=" col s12 m6 l6">
+                            <h:outputLabel value="CEP"/>
+                            <p:inputMask mask="99999-999" id="cep" value="#{pessoaBean.endereco.cepEndereco}" />
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class=" col s12">
+                            <h:outputLabel value="Complemento"/>
+                            <p:inputText id="complemento" value="#{pessoaBean.endereco.complementoEndereco}" />
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 center-align">
+                            <p:commandButton   action="#{pessoaBean.adicionarEndereco(loginBean.pessoaAtual.idPessoa)}"  value="Salvar Endereco" />
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+
+        
+    </ui:define>
+
+</ui:composition>

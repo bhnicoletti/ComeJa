@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form id="form1" enctype="">
+            <p:growl autoUpdate="true"></p:growl>
+            <div class="row">
+                <div class="row">
+                    <div class="col s12">
+                        <h3>Configurações - ComeJá</h3>
+                    </div>
+                </div>
+
+                <div class="modal" id="modalconfiguracao">                        
+                    <div class="modal-content" style="color: #000; input{background-color: yellow};">
+                        <div class="row">
+                            <div class="col s12">
+                                <p:inputText type="hidden" id="id" value="#{configuracaoBean.config.id}"/>
+                            </div>
+                            <div class="col s12">
+                                <p>Titulo Mensagem</p>
+                                <p:inputText id="titulo" value="#{configuracaoBean.config.tituloMensagem}"/>
+                            </div>
+                            <div class="col s12">
+                                <p>Mensagem Mural</p>
+                                <p:inputText id="mensagem" value="#{configuracaoBean.config.mensagemMural}"/>
+                            </div>
+                            <div class="col s12">
+                                <p>Versão Android</p>
+                                <p:inputText id="verAndroid" value="#{configuracaoBean.config.versaoAppAndroid}"/>
+                            </div>
+                            <div class="col s12">
+                                <p>Versão Iphone</p>
+                                <p:inputText id="verIphone" value="#{configuracaoBean.config.versaoAppIphone}"/>
+                            </div>
+                            <div class="col s12">
+                                <p>Versão Empresa</p>
+                                <p:inputText id="verEmpresma" value="#{configuracaoBean.config.versaoAppEmpresa}"/>
+                            </div>
+                            <div class="col s12">
+                                <p>Status</p>
+                                <p:selectBooleanCheckbox id="status" value="#{configuracaoBean.config.status}" />
+                            </div>
+                            <br></br>
+                            <div class="input-field col s12">
+                                <p>Página Inicial</p>
+                                <p:selectBooleanCheckbox id="pagInicial" value="#{configuracaoBean.config.paginainicial}"/>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <p:commandButton value="Salvar" update=":form1:listaconfiguracao" action="#{configuracaoBean.salvar()}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col s12 center-align">
+                    <p:dataTable emptyMessage="Nenhuma configuração encontrada" value="#{listaConfiguracaoBean.model}" paginator="true" lazy="true" rows="5" id="listaconfiguracao"
+                                 tableStyle="table-layout:auto;width:100%;" var="config"   >
+                        <p:column headerText="Titulo" class="center-align" priority="1">
+                            <h:outputText value="#{config.tituloMensagem}"></h:outputText>
+                        </p:column>
+                        <p:column headerText="Mensagem" class="center-align" priority="1">
+                            <h:outputText value="#{config.mensagemMural}"></h:outputText>
+                        </p:column>
+                        <p:column headerText="Status" class="center-align" priority="1">
+                            <h:outputText value="#{config.status}"></h:outputText>
+                        </p:column>
+                        <p:column headerText="Pagina Inicial" class="center-align" priority="1">
+                            <h:outputText value="#{config.paginainicial}"></h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Ações" class="center-align" priority="1">                            
+                            <p:commandButton update=":form1:id, :form1:pagInicial, :form1:titulo, :form1:mensagem, :form1:verAndroid, :form1:verIphone, :form1:verEmpresma, :form1:status"
+                                             action="#{configuracaoBean.carregar(config.id)}" value="Carregar"/>
+
+
+                        </p:column>
+
+                    </p:dataTable>
+                </div>
+
+                <div class="row col s12" align="right">
+                    <p:commandButton ajax="true" value="Adicionar" action="#{configuracaoBean.limparCampos()}"/>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title"><title>ComeJá - Últimos Pedidos</title></ui:define>
+    <ui:define name="content">
+        <p:growl autoUpdate="true"></p:growl>
+
+        <br></br>
+        <h5 align="center">Últimos Pedidos</h5>
+        <div id="ultimosPedidos">
+
+            <h:form id="formListaUltimosPedidos">
+                <p:dataGrid columns="1" layout="grid" id="listaUltimosPedidos" emptyMessage="Nenhum pedido encontrado" value="#{vendaBean.listarUltimasVendas(loginBean.pessoaAtual.idPessoa)}" var="venda">
+                    <div class="card ">
+                        <div class="card-content black-text center-align">
+                            <h:outputText value="#{venda.vlrTotalVenda}">
+                                <f:convertNumber maxFractionDigits="2" currencySymbol="R$" type="currency" minFractionDigits="2" />
+                            </h:outputText>
+                            <br></br>
+
+                            <h:outputText value="#{venda.dataVenda}">
+                                <f:convertDateTime type="date" dateStyle="short" pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                            <br></br>
+
+                            <h:outputText value="#{venda.statusVenda}"/>
+                            <br></br>
+                            <div class="card-action center-align red">
+                                <p:commandButton action="#{exibeVendaBean.carregarVendaSelecionada(venda)}" update="formItens:itensvenda" value="Ver"/>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </p:dataGrid>     
+
+            </h:form>
+
+        </div>
+
+        <div class="modal" id="modalitens">
+            <h:form id="formItens">
+                <div class="modal-content">
+
+
+                    <p:dataGrid layout="grid" columns="1" id="itensvenda" value="#{exibeVendaBean.venda.carrinho}" var="item">
+
+                        <h5 align="center"><h:outputText value="#{item.produtoItemVenda.nomeProduto}"></h:outputText></h5>
+                        <br></br>
+                        <h:outputText value="Quantidade: #{item.quantItemVenda}"></h:outputText>
+                        <br></br>
+                        <h:outputText value="#{item.vlrItemVenda}">
+                            <f:convertNumber maxFractionDigits="2" currencySymbol="R$" type="currency" minFractionDigits="2" />
+                        </h:outputText>
+                        <p align="center">Ingredientes</p>
+                        <p:dataGrid columns="1" layout="grid" emptyMessage="Nenhum ingrediente encontrado" value="#{item.ingredientesProduto}" var="ingrediente">
+
+                            <h:outputText value="#{ingrediente.nomeIngrediente}"></h:outputText>                                                        
+
+                        </p:dataGrid>
+                        <p align="center">Ingredientes Adicionais</p>
+                        <p:dataGrid columns="1" layout="grid" emptyMessage="Nenhum adicional" value="#{item.ingredientesAdicionais}" var="ingredientea">
+
+                            <h:outputText value="#{ingredientea.nomeIngrediente} - R$ "></h:outputText>                                                        
+
+                            <h:outputText value="#{ingredientea.valorAdicional}">
+                                <f:convertNumber maxFractionDigits="2" currencySymbol="R$" type="currency" minFractionDigits="2" />
+                            </h:outputText>
+
+                        </p:dataGrid>
+
+                    </p:dataGrid>
+                </div>
+            </h:form>
+        </div>
+
+
+
+
+    </ui:define>
+
+</ui:composition>

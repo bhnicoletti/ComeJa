@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <style>
+            .fileupload-buttonbar {
+                background: transparent none;
+                border: none;
+            }
+
+            .fileupload-content {
+                display: none;
+            }
+
+            .ui-fileupload .fileinput-button {
+                background-color: rgba(142, 103, 64, 0.98);
+            }
+        </style>
+        <br></br>
+        <div class="row">
+            <div class="col s12">
+                <h3>Cadastro Empresa</h3>
+            </div>
+            <p:growl autoUpdate="true"></p:growl> 
+            <h:form>
+                <div class="row">
+                    <div class="input-field col s12 m6 l6">
+                        <h:selectOneRadio value="#{pessoaBean.tipoS}">                            
+                            <f:selectItem itemLabel="Fisico" itemValue="F"/>  
+                            <f:selectItem itemLabel="Juridico" itemValue="J"/>  
+                            <p:ajax update="CNPJ, CPF, RAZAO" />
+                        </h:selectOneRadio>
+                    </div>
+                    <div class="col s12 m6 l6" align="center">
+                        <p:graphicImage id="imagem" width="150" height="150" value="../imagens/#{pessoaBean.pessoa.imagem}" />
+                    </div>
+                </div>
+                <br></br>
+                <div class="row">
+                    <div class="row">
+                        <div class="input-field col s12 m12 l8">
+                            <i class="material-icons prefix">account_circle</i>
+                            <p:outputLabel value="Nome"/>
+                            <p:inputText value="#{pessoaBean.pessoa.nomeFantasiaPessoa}"/>
+                        </div>
+
+                        <div class="input-field col s12 m12 l4">
+                            <p>Logotipo</p>
+                            <p:fileUpload id="upload" update="imagem" label="Selecionar..." skinSimple="true" mode="advanced"
+                                          fileUploadListener="#{pessoaBean.upload}" auto="true"></p:fileUpload>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <p:outputLabel value="Razão Social"/>
+                            <p:inputText id="RAZAO" disabled="#{!pessoaBean.tipo?false:true}"  value="#{pessoaBean.pessoa.razaoSocialPessoa}"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6 l6">
+                            <p:outputLabel value="CPF"/>
+                            <p:inputMask  validator="cpfValidator" converter="cpfConverter" id="CPF" mask="999.999.999-99"
+                                          disabled="#{pessoaBean.tipo?false:true}" value="#{pessoaBean.pessoa.cpfCnpjPessoa}"/>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="input-field col s12 m6 l6">
+                            <p:outputLabel value="CNPJ"/>
+                            <p:inputMask mask="99.999.999/9999-99" validator="cnpjValidator" converter="cnpjConverter" id="CNPJ" 
+                                         disabled="#{!pessoaBean.tipo?false:true}" value="#{pessoaBean.pessoa.cpfCnpjPessoa}"
+                                         />
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6 l6">
+                        <i class="material-icons prefix">phone</i>   
+                        <h:outputLabel value="Telefone Celular"/>
+                        <p:inputMask  
+                            value="#{pessoaBean.pessoa.celularPessoa}"
+                            mask="(99) 99999-9999"
+                            required="true"
+                            id="celular"/>
+                    </div>
+                    <div class="input-field col s12 m6 l6">
+                        <i class="material-icons prefix">phone</i>   
+                        <h:outputLabel value="Telefone Fixo"/>
+                        <p:inputMask  
+                            id="telefone"
+                            value="#{pessoaBean.pessoa.telefonePessoa}"
+                            mask="(99) 9999-9999" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">  
+                        <h:selectOneRadio value="#{pessoaBean.pessoa.categoriaPessoa}" label="Categoria">
+                            <f:selectItem itemLabel="Lanchonete" itemValue="Lanchonete"/>
+                            <f:selectItem itemLabel="Pizzaria" itemValue="Pizzaria"/>
+                            <f:selectItem itemLabel="Restaurante" itemValue="Restaurante"/>
+                        </h:selectOneRadio>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">  
+                        <i class="material-icons prefix">https</i>   
+                        <h:outputLabel value="Senha"/>
+                        <p:inputText type="password" value="#{pessoaBean.senha}" id="senha"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">  
+                        <i class="material-icons prefix">https</i>   
+                        <h:outputLabel value="Confirmar Senha"/>
+                        <p:inputText type="password" value="#{pessoaBean.confirmasenha}" id="confirmasenha"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">email</i>  
+                        <h:outputLabel value="Email"/>
+                        <p:inputText type="email" label="Email" value="#{pessoaBean.pessoa.emailPessoa}"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12 center-align">
+                        <p:commandButton id="botaoenviar" action="#{pessoaBean.salvarEmpresa()}"  value="Enviar" />
+                    </div>
+                </div>
+            </h:form>
+        </div>
+
+    </ui:define>
+</ui:composition>

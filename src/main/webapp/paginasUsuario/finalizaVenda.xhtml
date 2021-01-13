@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title"><title>ComeJá - Finalizar Venda</title></ui:define>
+    <ui:define name="content">
+        <br></br>
+        <h:form id="finalizaVenda">
+            <div class="row">
+                <div class="col s0 m2 l2">
+                    <br></br>
+                </div>
+                <div class="col s12 m8 l8 ">
+                    <div class="col s12">
+                        <h5 align="center">Carrinho de Compras</h5>
+                        <p:dataGrid emptyMessage="Nenhum produto encontrado" id="listaCarrinho" styleClass=".ui-datatable-hor-scroll"
+                                    value="#{vendaBean.carrinhoCompras}" var="carrinho" layout="grid">
+                            <div class="row" align="center">
+                                <h:outputText value="#{carrinho.produtoItemVenda.nomeProduto}"></h:outputText>
+                                <br></br>
+
+                                <h:outputText value="Quantidade: #{carrinho.quantItemVenda}"></h:outputText>
+                                <br></br>
+
+                                <h:outputText value="#{carrinho.vlrItemVenda}">
+                                    <f:convertNumber maxFractionDigits="2" currencySymbol="R$" type="currency" minFractionDigits="2" />
+                                </h:outputText>
+                                <br></br>
+
+                                <p:commandButton value="Excluir" update="listaCarrinho, formCarrinho:valorTotal" action="#{vendaBean.removerCarrinho(carrinho)}"/>
+                            </div>
+                        </p:dataGrid>
+                    </div>
+                    <div class="row">
+                        <div class="s12 center-align">
+                            <h:outputText id="valorTotal" value="Valor Total: #{vendaBean.valorTotal}">
+                                <f:convertNumber maxFractionDigits="2" currencySymbol="R$" type="currency" minFractionDigits="2" />
+                            </h:outputText>
+                        </div>                                     
+                    </div>
+                    <div class="row">                        
+                        <div class="col s12">
+                            <p>Selecione a forma de pagamento desejada:</p>
+                            <h:panelGroup layout="block" styleClass="selection">
+                                <h:selectOneRadio
+                                    value="#{vendaBean.vend.formPagamento}"
+                                    layout="pageDirection">
+                                    <f:selectItems value="#{vendaBean.carrinhoCompras.get(0).produtoItemVenda.empresaProduto.listaFormaPagamento}"
+                                                   var="forma" itemLabel="#{forma.formaPagamento}" itemValue="#{forma.formaPagamento}"/>
+                                </h:selectOneRadio>
+                            </h:panelGroup>
+                        </div>
+                        <div class="input-field col s12">
+                            <p>Troco para</p>
+                            <p:inputNumber maxValue="1000" value="#{vendaBean.vend.trocoParaVenda}">
+                                <f:convertNumber pattern="#,##0.00"></f:convertNumber> 
+                            </p:inputNumber>
+                        </div>
+                    </div>
+                    <div class="row">   
+                        <div class="col s12">
+
+                            <p>Selecione o endereço para entrega:</p>
+                            <h:panelGroup layout="block" styleClass="selection">
+                                <h:selectOneRadio 
+                                    value="#{vendaBean.endereco}"
+                                    converter="enderecoConverter"
+                                    layout="pageDirection">
+                                    <f:selectItem itemValue="#{null}"  itemLabel="Retirar no local"/>
+                                    <f:selectItems
+                                        value="#{loginBean.pessoaAtual.enderecos}"
+                                        var="endereco" itemValue="#{endereco}"
+                                        itemLabel="#{endereco.ruaEndereco},nº #{endereco.numeroEndereco}, #{endereco.bairroEndereco} - #{endereco.cidadeEndereco}"/>
+                                </h:selectOneRadio>
+                            </h:panelGroup>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <p:commandButton value="PedirJá" action="#{vendaBean.finalizarVenda()}"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s0 m2 l2">
+                    <br></br>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

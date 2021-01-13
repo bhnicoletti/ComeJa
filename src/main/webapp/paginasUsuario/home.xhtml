@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:define name="content">
+        <br></br>
+
+        <div class="carousel">
+
+            <a class="carousel-item" style="width: 400px">
+                <img alt="Pedido Comida Online" title="Pedido Comida Online" src="../resources/imagens/pizza.jpg"/>
+
+            </a>
+
+            <a  class="carousel-item" style="width: 400px">
+                <img alt="Comida Online" title="Comida Online" src="../resources/imagens/pastel.jpg"/>
+
+            </a>
+
+            <a  class="carousel-item" style="width: 400px">
+                <img alt="Pedido Comida" title="Pedido Comida" src="../resources/imagens/lanche.jpg"/>
+
+            </a>
+
+            <a  class="carousel-item" style="width: 400px">
+                <img alt="Comida" title="Comida" src="../resources/imagens/Calzone_1.jpg"/>
+
+            </a>
+        </div>
+
+        <br></br>
+
+
+
+
+
+        
+
+
+
+        <div class="row">
+
+            <div class="col s0 m2 l3">
+                <br></br>
+            </div>
+            <div class="col s12 m8 l6">
+
+                <h5 align="center">Mural de Recados</h5>
+                <p:dataGrid value="#{configuracaoBean.lista}" layout="grid" columns="1" emptyMessage="Nenhuma mensagem no mural" var="config">
+
+                    <div class="row">
+                        <div class="col s12">
+                            <h6 align="center">#{config.tituloMensagem}</h6>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{config.mensagemMural}</p>
+                        </div>
+                    </div>
+                </p:dataGrid>
+            </div>
+            <div class="col s0 m2 l3">
+                <br></br>
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+    </ui:define>
+
+</ui:composition>

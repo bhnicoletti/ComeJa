@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorioVendasComeJa" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1f0189cf-55ad-4611-9d5d-a5a5716e6828">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="COMEJA"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value="dmVuZGEgLDIwLDg0LDA2NWRjNWMxLTMyYzUtNGNmNy1hZDRhLWFiMDA2YmNlZWQyYjtwZXNzb2Eg&#xA;LDM4NywzLDMwNjFmMDA5LTA3OTAtNDBiMC04OWUzLTZmNTBhYmUwMmI4MDs="/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="108"/>
+	<parameter name="dataFinal" class="java.sql.Date"/>
+	<parameter name="idEmpresa" class="java.lang.Long">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="dataInicial" class="java.sql.Date"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["http://www.comeja.com.br/relatorios/"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT venda.idvenda,
+	venda.datavenda as "dataVenda",
+	venda.statusvenda as "statusVenda",
+	venda.idvenda as "idVenda",
+	venda.vlrtotalvenda as "valorVenda",
+	venda.cliente_idpessoa,
+	pessoa.nomefantasiapessoa as "nomeCliente"
+FROM venda
+	INNER JOIN pessoa ON 
+	 venda.cliente_idpessoa = pessoa.idpessoa 
+	 where venda.empresa_idpessoa =  $P{idEmpresa}
+	 and $P{dataInicial} <= venda.datavenda
+     and $P{dataFinal} >=  venda.datavenda]]>
+	</queryString>
+	<field name="nomeCliente" class="java.lang.String"/>
+	<field name="dataVenda" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="statusVenda" class="java.lang.String"/>
+	<field name="idVenda" class="java.lang.Long"/>
+	<field name="valorVenda" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="0" y="0" width="550" height="50" uuid="adfb0aeb-272d-417b-afc4-7d8b6c5a219c"/>
+				<imageExpression><![CDATA["http://www.comeja.com.br/javax.faces.resource/logo.png.jsf?ln=imagens"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="-23" y="50" width="595" height="30" uuid="05f35aea-1d29-4ca8-b380-f7aabff4da5d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="19" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Vendas]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="30" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="480" y="0" width="78" height="30" uuid="24a27075-9390-4e6e-b6c5-7f15fd9352e9"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="0" width="80" height="30" uuid="7c3daa4a-4ae0-4c20-8353-b3b8b23fb114"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pag " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="440" y="7" width="80" height="17" uuid="d085efa5-9250-4e59-bb78-4051ed9bfa26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="4" width="90" height="17" uuid="80743586-3b96-4854-bce5-863a8ca74732"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="5" width="90" height="20" uuid="5df07171-4a26-4115-970b-bb416c7a8d2d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="4" width="150" height="17" uuid="8f569121-4b00-470b-b5f6-3f48a884839c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="117" splitType="Stretch">
+			<textField>
+				<reportElement x="180" y="0" width="100" height="30" uuid="52175773-b0d1-42d0-81a1-98f8cb5edf7a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{statusVenda}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="100" height="30" uuid="a00d404c-092a-40fb-ace3-b07e88557b50"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[java.text.NumberFormat.getCurrencyInstance(new Locale("pt","br")).format($F{valorVenda}.doubleValue())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="0" width="100" height="30" uuid="2c30d50a-b6bc-497a-a4cd-6dc28f61214b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{dataVenda})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="0" width="150" height="30" uuid="52ead001-a7db-4885-aa1e-4fcab3aec600"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomeCliente}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="80" y="40" width="400" height="67" uuid="c2b44a56-c862-493a-8189-e13f58f2dc69"/>
+				<subreportParameter name="idvenda">
+					<subreportParameterExpression><![CDATA[$F{idVenda}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "produtos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="60" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement positionType="FixRelativeToBottom" x="-20" y="10" width="592" height="40" uuid="45c81127-b54c-447f-967b-eb25b1136ba1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

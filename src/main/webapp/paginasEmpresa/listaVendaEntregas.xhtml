@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <div class="col s12">
+            <div class="col s12">
+                <h3>Pedidos</h3>
+            </div>
+            <div class="row col s12">
+                <h:form id="formListaPedidos">
+                    <p:growl autoUpdate="true"/>
+                    <p:dataTable id="ListaPedidos" emptyMessage="Nenhum dado encontrado" value="#{listaVendaBean.model}" lazy="true" rows="10" var="venda">
+                        <p:column headerText="Valor" priority="1">
+                            <p:outputLabel value="#{venda.vlrTotalVenda}">
+                                <f:convertNumber maxFractionDigits="2" currencySymbol="R$" type="currency" minFractionDigits="2" />
+                            </p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Data"  priority="1">
+                            <p:outputLabel value="#{venda.dataVenda}">
+                                <f:convertDateTime type="date" dateStyle="short" pattern="dd/MM/yyyy"/>
+                            </p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Status" priority="3">
+                            <p:outputLabel value="#{venda.statusVenda}"/>
+                        </p:column>
+                        <p:column headerText="Ações" priority="1">
+                            <p:commandButton action="#{exibeVendaBean.carregarVendaSelecionada(venda)}" update="formItens:nome, formItens:telefone, formItens:data, formItens:hora, formItens:troco, formItens:status, formItens:valor, formItens:forma, formItens:retirada, formItens:endereco, formItens:carrinho" value="Ver"/>
+                          
+                            <p:commandButton value="Finalizar" action="#{vendaBean.finalizarVenda(venda)}" update="ListaPedidos"/>
+
+                        </p:column>
+                    </p:dataTable>                  
+                </h:form>
+            </div>
+        </div>
+
+        <div class="modal" id="modalitens" style="width: 90% !important; height: 80% !important">
+            <h:form id="formItens">
+                <div class="modal-content">
+                    <div id="FichaVenda">
+                        <h3>Ficha de Venda</h3>
+                        <p:panelGrid id="ficha" columns="2">
+                            <p:outputLabel  value="Cliente"/>
+                            <p:outputLabel id="nome" value="#{exibeVendaBean.venda.cliente.nomeFantasiaPessoa}"/>
+                            <p:outputLabel value="Telefone"/>
+                            <p:outputLabel id="telefone" value="#{exibeVendaBean.venda.cliente.telefonePessoa} | #{exibeVendaBean.venda.cliente.celularPessoa}"/>
+                            <p:outputLabel value="Data"/>
+                            <p:outputLabel id="data" value="#{exibeVendaBean.venda.dataVenda}">
+                                <f:convertDateTime type="date" dateStyle="short" pattern="dd/MM/yyyy"/>
+                            </p:outputLabel>
+                            <p:outputLabel value="Horário"/>
+                            <p:outputLabel id="hora" value="#{exibeVendaBean.venda.hora}"/>
+                            <p:outputLabel value="Status"/>
+                            <p:outputLabel id="status" value="#{exibeVendaBean.venda.statusVenda}"/>
+                            <p:outputLabel value="Forma de Pagamento"/>
+                            <p:outputLabel id="forma" value="#{exibeVendaBean.venda.formPagamento}"/>
+                            <p:outputLabel value="Total"/>
+                            <p:outputLabel id="valor" value="#{exibeVendaBean.venda.vlrTotalVenda}">
+                                <f:convertNumber maxFractionDigits="2" currencySymbol="R$" type="currency" minFractionDigits="2" />
+                            </p:outputLabel>
+                            <p:outputLabel value="Troco para"/>
+                            <p:outputLabel id="troco" value="#{exibeVendaBean.venda.trocoParaVenda}">
+                                <f:convertNumber maxFractionDigits="2" currencySymbol="R$" type="currency" minFractionDigits="2" />
+                            </p:outputLabel>
+                            <p:outputLabel value="Retirar?"/>
+                            <p:outputLabel id="retirada" value="#{exibeVendaBean.retirada}"/>
+                            <p:outputLabel value="Endereço para Entrega"/>
+                            <p:outputLabel id="endereco" value="Logradouro: #{exibeVendaBean.venda.endereco.ruaEndereco},
+                                           #{exibeVendaBean.venda.endereco.numeroEndereco}
+                                           - #{exibeVendaBean.venda.endereco.bairroEndereco},
+                                           #{exibeVendaBean.venda.endereco.cidadeEndereco}"/>
+                        </p:panelGrid>
+                        <p:dataTable id="carrinho" var="carrinho" value="#{exibeVendaBean.venda.carrinho}">
+                            <p:column headerText="Produto">
+                                <p:outputLabel value="#{carrinho.produtoItemVenda.nomeProduto} - #{carrinho.tamanho}"/>
+                            </p:column>
+                            <p:column headerText="Quantidade">
+                                <p:outputLabel value="#{carrinho.quantItemVenda}"/>
+                            </p:column>
+                            <p:column headerText="Valor:">
+                                <p:outputLabel value="#{carrinho.vlrItemVenda}">
+                                    <f:convertNumber maxFractionDigits="2" currencySymbol="R$" type="currency" minFractionDigits="2" />
+                                </p:outputLabel>
+                            </p:column>
+                            <p:column headerText="Ingredientes" priority="1">
+                                <p:dataGrid columns="1" layout="grid" emptyMessage="Nenhum ingrediente encontrado" value="#{carrinho.ingredientesProduto}" var="ingrediente">
+                                    <p:column headerText="Ingrediente">                                                        
+                                        <p:outputLabel value="#{ingrediente.nomeIngrediente}"></p:outputLabel>  
+                                        <p:graphicImage width="30" height="30" library="imagens" name="check.png"/>
+                                    </p:column>
+                                </p:dataGrid>
+                                <p:dataGrid columns="1" layout="grid" emptyMessage="" value="#{carrinho.ingredientesRetirados}" var="ingredientere">
+                                    <p:column headerText="Ingrediente Retirado">                                                        
+                                        <p:outputLabel value="#{ingredientere.nomeIngrediente}"></p:outputLabel> 
+                                        <p:graphicImage width="30" height="30" library="imagens" name="not.png"/>
+                                    </p:column>
+                                </p:dataGrid>
+                            </p:column>
+                            <p:column headerText="Adicionais" priority="1">
+                                <p:dataGrid columns="1" layout="grid" emptyMessage="Nenhum adicional" value="#{carrinho.ingredientesAdicionais}" var="ingredientea">
+                                    <p:column headerText="Ingrediente">                                                        
+                                        <p:outputLabel value="#{ingredientea.nomeIngrediente} - R$ "></p:outputLabel>                                                        
+
+                                        <p:outputLabel value="#{ingredientea.valorAdicional}">
+                                            <f:convertNumber maxFractionDigits="2" currencySymbol="R$" type="currency" minFractionDigits="2" />
+                                        </p:outputLabel>
+                                        <p:graphicImage width="30" height="30" library="imagens" name="check.png"/>
+                                    </p:column> 
+                                </p:dataGrid>
+                            </p:column>
+                        </p:dataTable>
+
+                        <p:commandButton action="#{exibeVendaBean.imprimirFichaVenda()}" value="Imprimir"/>
+                        <p:commandButton action="#{exibeVendaBean.aceitarPedido()}" update="formListaPedidos:ListaPedidos" value="Aceitar Pedido"/>
+                        <p:commandButton action="#{exibeVendaBean.recusarPedido()}" update="formListaPedidos:ListaPedidos" value="Recusar Pedido"/>
+
+                    </div>
+                </div>
+            </h:form>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

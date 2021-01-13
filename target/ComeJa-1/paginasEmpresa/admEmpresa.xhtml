@@ -1,0 +1,291 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <p:growl autoUpdate="true"></p:growl>
+        <div class="modal" id="modalCliente">
+            <h:form id="formCliente">
+                <div class="modal-content">
+                    <div class="row">
+                        <div class=" col s12">
+                            <p:inputText type="hidden" id="idPessoa" value="#{pessoaBean.pessoa.idPessoa}"/>
+                            <i class="material-icons prefix">account_circle</i>
+                            <p>Nome</p>
+                            <p:inputText required="true" id="nome" value="#{pessoaBean.pessoa.nomeFantasiaPessoa}"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <p>Razão Social</p>
+                            <p:inputText id="RAZAO" value="#{pessoaBean.pessoa.razaoSocialPessoa}"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m6 l6">
+                            <p>Logotipo</p>
+                            <p:fileUpload id="upload" update="imagem, nomeImagem" label="Selecionar..." skinSimple="true" mode="advanced"
+                                          fileUploadListener="#{pessoaBean.upload}" auto="true"></p:fileUpload>
+                        </div>
+                        <div class="col s12 m6 l6">
+
+                            <p:graphicImage id="imagem" width="150" height="150" value="../imagens/#{pessoaBean.pessoa.imagem}" />
+                            <p:inputText id="nomeImagem" value="#{pessoaBean.pessoa.imagem}"/>
+                        </div>
+                    </div>
+                   
+
+                    <div class="row">
+                        <div class="col s12 m6 l6">
+                            <i class="material-icons prefix">phone</i>   
+                            <p>Telefone Celular</p>
+                            <p:inputMask  
+                                value="#{pessoaBean.pessoa.celularPessoa}"
+                                mask="(99) 99999-9999"
+                                required="true"
+                                id="celular"
+                                />
+                        </div>
+                        <div class=" col s12 m6 l6">
+                            <i class="material-icons prefix">phone</i> 
+                            <p>Telefone Fixo</p>
+                            <p:inputMask  
+                                id="telefone"
+                                value="#{pessoaBean.pessoa.telefonePessoa}"
+                                mask="(99) 9999-9999" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">  
+                            <i class="material-icons prefix">https</i>   
+                            <p>Senha</p>
+                            <p:inputText type="password" required="true" value="#{pessoaBean.senha}" label="Senha"  id="senha"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class=" col s12">  
+                            <i class="material-icons prefix">https</i>   
+                            <p>Confirma Senha</p>
+                            <p:inputText type="password" required="true" label="Confirmar Senha" value="#{pessoaBean.confirmasenha}" id="confirmasenha"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class=" col s12">
+                            <i class="material-icons prefix">email</i>  
+                            <p>Email</p>
+                            <p:inputText id="email" type="email" label="Email"  value="#{pessoaBean.pessoa.emailPessoa}"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">  
+                            <p>Categorias de produtos</p>
+                            <h:panelGroup layout="block" styleClass="selection">
+                                <h:selectManyCheckbox id="categorias" converter="categoriaConverter" value="#{pessoaBean.categorias}" layout="pageDirection">
+                                    <f:selectItems value="#{categoriaBean.listarCategoria()}"
+                                                   var="categoria" itemValue="#{categoria}"
+                                                   itemLabel="#{categoria.tituloCategoria}"/>
+                                </h:selectManyCheckbox>
+                            </h:panelGroup>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">  
+                            <p>Formas de Pagamento</p>
+                            <h:panelGroup layout="block" styleClass="selection">
+                                <h:selectManyCheckbox id="formasPagamento" converter="formaPagamentoConverter" value="#{pessoaBean.formas}" layout="pageDirection">
+                                    <f:selectItems value="#{formaPagamentoBean.listar()}"
+                                                   var="forma" itemValue="#{forma}"
+                                                   itemLabel="#{forma.formaPagamento}"/>
+                                </h:selectManyCheckbox>
+                            </h:panelGroup>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">  
+                            <p>Cidade em operação</p>
+                            <h:panelGroup layout="block" styleClass="selection">
+                                <h:selectOneRadio id="cidades" converter="cidadeConverter" value="#{pessoaBean.pessoa.cidade}" layout="pageDirection">
+                                    <f:selectItems value="#{cidadeBean.listarCidade()}"
+                                                   var="cidade" itemValue="#{cidade}"
+                                                   itemLabel="#{cidade.nome}"/>
+                                </h:selectOneRadio>
+                            </h:panelGroup>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <p>Valor Entrega</p>
+                            <p:inputText label="Valor Entrega" value="#{pessoaBean.pessoa.valorEntrega}"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <p:commandButton  action="#{pessoaBean.atualizarPessoaModoEmpresa()}"  value="Atualizar Dados"/>
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+
+
+        <div class="modal" id="modalEndereco">
+            <h:form id="formEndereco">
+                <div class="modal-content">
+                    <p:inputText type="hidden" id="idEndereco" value="#{pessoaBean.endereco.idEndereco}"/>
+                    <div class="row">
+                        <h5 class="center-align"><i class="material-icons prefix">my_location</i>&nbsp;&nbsp;&nbsp;Endereço</h5>
+                    </div>
+                    <div class="row">
+                        <div class=" col s12 m6 l6">
+                            <h:outputLabel value="Rua"/>
+                            <p:inputText id="rua" value="#{pessoaBean.endereco.ruaEndereco}" />
+
+                        </div>
+                        <div class=" col s12 m6 l6">
+                            <h:outputLabel value="Número"/>
+                            <p:inputText  id="numero" value="#{pessoaBean.endereco.numeroEndereco}" />
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class=" col s12 m6 l6">
+                            <h:outputLabel value="Bairro"/>
+                            <p:inputText id="bairro" value="#{pessoaBean.endereco.bairroEndereco}" />
+
+                        </div>
+                        <div class=" col s12 m6 l6">
+                            <h:outputLabel value="Cidade"/>
+                            <p:inputText id="cidade" value="#{pessoaBean.endereco.cidadeEndereco}" />
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6 l6 ">   
+                            <p:selectOneListbox value="#{pessoaBean.endereco.estadoEndereco}" label="Estados" id="estadoEndereco" >
+                                <f:selectItem itemLabel="Acre" itemValue="AC" />
+                                <f:selectItem itemLabel="Alagoas" itemValue="AL" />
+                                <f:selectItem itemLabel="Amapá" itemValue="AP" />
+                                <f:selectItem itemLabel="Amazonas" itemValue="AM" />
+                                <f:selectItem itemLabel="Bahia" itemValue="BA" />
+                                <f:selectItem itemLabel="Ceará" itemValue="CE" />
+                                <f:selectItem itemLabel="Distrito Federal" itemValue="DF" />
+                                <f:selectItem itemLabel="Goiás" itemValue="GO" />
+                                <f:selectItem itemLabel="Espírito Santo" itemValue="ES" />
+                                <f:selectItem itemLabel="Maranhão" itemValue="MA" />
+                                <f:selectItem itemLabel="Mato Grosso" itemValue="MT" />
+                                <f:selectItem itemLabel="Mato Grosso do Sul" itemValue="MS" />
+                                <f:selectItem itemLabel="Minas Gerais" itemValue="MG" />
+                                <f:selectItem itemLabel="Pará" itemValue="PA" />
+                                <f:selectItem itemLabel="Paraiba" itemValue="PB" />
+                                <f:selectItem itemLabel="Paraná" itemValue="PR" />
+                                <f:selectItem itemLabel="Pernambuco" itemValue="PE" />
+                                <f:selectItem itemLabel="Piauí" itemValue="PI" />
+                                <f:selectItem itemLabel="Rio de Janeiro" itemValue="RJ" />
+                                <f:selectItem itemLabel="Rio Grande do Norte" itemValue="RN" />
+                                <f:selectItem itemLabel="Rio Grande do Sul" itemValue="RS" />
+                                <f:selectItem itemLabel="Rondônia" itemValue="RO" />
+                                <f:selectItem itemLabel="Rorâima" itemValue="RR" />
+                                <f:selectItem itemLabel="São Paulo" itemValue="SP" />
+                                <f:selectItem itemLabel="Santa Catarina" itemValue="SC" />
+                                <f:selectItem itemLabel="Sergipe" itemValue="SE" />
+                                <f:selectItem itemLabel="Tocantins" itemValue="TO" />
+                            </p:selectOneListbox>
+                        </div>
+                        <div class=" col s12 m6 l6">
+                            <h:outputLabel value="CEP"/>
+                            <p:inputMask mask="99999-999" id="cep" value="#{pessoaBean.endereco.cepEndereco}" />
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class=" col s12">
+                            <h:outputLabel value="Complemento"/>
+                            <p:inputText id="complemento" value="#{pessoaBean.endereco.complementoEndereco}" />
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 center-align">
+                            <p:commandButton   action="#{pessoaBean.adicionarEnderecoModoEmpresa(loginBean.pessoaAtual.idPessoa)}"  value="Salvar Endereco" />
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab col s4"><a href="#dadosCadastrais">Dados Cadastrais</a></li>
+                    <li class="tab col s4"><a href="#enderecos">Endereços</a></li> 
+                    <li class="tab col s4"><a href="#relatorios">Relatórios</a></li> 
+                </ul>
+            </div>
+
+
+            <div id="dadosCadastrais" class="col s12 center-align">
+                <h:form>
+                    <p>Nome: <h:outputText value="#{loginBean.pessoaAtual.nomeFantasiaPessoa}"/></p>
+
+                    <p>Email: <h:outputText value="#{loginBean.pessoaAtual.emailPessoa}"/></p>
+                    <p>CPF/CNPJ: <h:outputText value="#{loginBean.pessoaAtual.cpfCnpjPessoa}"/></p>
+                    <p>Telefone Fixo: <h:outputText value="#{loginBean.pessoaAtual.telefonePessoa}"/></p>
+                    <p>Telefone Celular: <h:outputText value="#{loginBean.pessoaAtual.celularPessoa}"/></p>
+                    <p:commandButton value="Atualizar Dados Cadastrais" update="formCliente:idPessoa, formCliente:cidades, formCliente:nome, formCliente:email, formCliente:telefone, formCliente:celular, formCliente:imagem, formCliente:nomeImagem, formCliente:categorias, formCliente:formasPagamento" action="#{pessoaBean.carregar(loginBean.pessoaAtual.idPessoa)}"/>
+                </h:form>
+            </div>
+
+            <div id="enderecos" class="col s12">
+                <h:form id="formlistaEndereco">
+                    <p:dataGrid id="listaEnderecos" layout="grid" columns="3" value="#{loginBean.pessoaAtual.enderecos}" var="endereco">
+                        <div class="row">
+                            <div class="card ">
+                                <div class="card-content white-text center-align">
+                                    <p class="card-title grey-text center-align">Endereço</p>                                       
+                                    <p class="center-align grey-text">Logradouro: <h:outputText value="#{endereco.ruaEndereco}"/>, Nº: <h:outputText value="#{endereco.numeroEndereco}"/>
+                                        <br></br>
+                                        Bairro: <h:outputText value="#{endereco.bairroEndereco}"/>, <h:outputText value="#{endereco.cidadeEndereco}"/> -<h:outputText value="#{endereco.estadoEndereco}"/>
+
+                                    </p>
+
+                                    <div class="card-action center-align">
+                                        <p:commandButton value="Remover" action="#{pessoaBean.removerEndereco(endereco)}"/>
+                                        <p:commandButton value="Atualizar" update="formEndereco:idEndereco ,formEndereco:rua, formEndereco:numero, formEndereco:bairro, formEndereco:cidade, formEndereco:complemento, formEndereco:cep, formEndereco:estadoEndereco" action="#{pessoaBean.carregarEndereco(endereco)}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p:dataGrid>
+                    <p:commandButton value="Adicionar Novo" update="formEndereco:idEndereco ,formEndereco:rua, formEndereco:numero, formEndereco:bairro, formEndereco:cidade, formEndereco:estadoEndereco, formEndereco:complemento, formEndereco:cep" action="#{pessoaBean.novoEndereco()}"/>
+                </h:form>
+            </div>
+
+
+            <div id="relatorios">
+
+                <div class="row">
+                    <div align="center" class="col s12">
+                        <br></br>
+                        <br></br>
+
+                        <iframe style="width:450px; height:350px; border: none" src="https://www.comeja.com.br/paginasEmpresa/graficos.jsf"></iframe>
+                        <iframe style="width:450px; height:350px; border: none" src="https://www.comeja.com.br/paginasEmpresa/graficosVendas.jsf"></iframe>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

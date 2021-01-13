@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/comejac_DB</property>
+        <property name="hibernate.connection.username">comejac</property>
+        <property name="hibernate.connection.password">Ni1aJ30@594</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.jdbc.batch_size">0</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.connection.autocommit">true</property>
+        <property name="hibernate.bytecode.use_reflection_optimizer">true</property>
+        <property name="hibernate.transaction.auto_close_session">true</property>
+        <property name="hibernate.transaction.flush_before_completion">true</property>
+        <property name="hibernate.event.merge.entity_copy_observer">allow</property>
+        <mapping class="model.Pessoa"/>
+        <mapping class="model.Produto"/>
+        <mapping class="model.Venda"/>
+        <mapping class="model.Categoria"/>
+        <mapping class="model.Endereco"/>
+        <mapping class="model.Ingrediente"/>
+        <mapping class="model.ItemVenda"/>
+        <mapping class="model.Configuracao"/>
+        <mapping class="model.Tamanho"/>
+        <mapping class="model.Cidade"/>
+        <mapping class="model.FormaPagamento"/>
+        <mapping class="model.Dispositivo"/>
+    </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title"><title>ComeJá - #{vendaBean.prod.nomeProduto}</title></ui:define>
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="idProduto" value="#{vendaBean.idPreLoad}" />
+        </f:metadata>
+        <f:event type="preRenderView" listener="#{vendaBean.carregarPreLoad()}" />
+        
+        <nav>
+            <div class="nav-wrapper center-align">
+                <div class="col s12">
+                    <a href="#{vendaBean.prod.empresaProduto.categoriaPessoa.toLowerCase()}s.jsf" class="breadcrumb">#{vendaBean.prod.empresaProduto.categoriaPessoa}</a>  
+                    <a href="listaProdutos.jsf?idEmpresa=#{vendaBean.prod.empresaProduto.idPessoa}" class="breadcrumb">#{vendaBean.prod.empresaProduto.nomeFantasiaPessoa}</a> 
+                    <a href="exibeProdutoBebida.jsf?idProduto=#{vendaBean.prod.idProduto}" class="breadcrumb">#{vendaBean.prod.nomeProduto}</a> 
+                </div>
+            </div>
+        </nav>
+        <div>     
+            <h:form id="formBebida">
+                <div class="card">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col s12 m12 l12 card-title">
+                                <h3> <h:outputText id="nome" value="#{vendaBean.prod.nomeProduto}"/> </h3>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="row">
+                            <div class="input-field col s12">
+                                <p><h:outputText id="descricao" value="#{vendaBean.prod.descricaoProduto}"/></p>
+                            </div>
+                            <div  class="col s12 m12 l12 center-align">
+                                <p:graphicImage class="circle responsive-img" id="imagem" width="250" height="250" value="../imagens/#{vendaBean.prod.imagemProduto}" />
+                            </div>
+                        </div>        
+
+                        <div class="row">
+                            <div class="input-field col s12">     
+                                <div class="row">
+                                    <div class="input-field col s12 m12 l12">
+                                        <h:outputText value="Valor"></h:outputText>
+                                        <h:panelGroup layout="block" styleClass="selection">
+                                            <h:selectOneRadio layout="pageDirection" converter="tamanhoConverter" required="true" requiredMessage="Selecione o valor do produto" id="precoTamanho" value="#{vendaBean.tamanhoProduto}">
+                                                <f:selectItems 
+                                                    value="#{vendaBean.prod.tamanhos}"
+                                                    var="tamanho" itemValue="#{tamanho}"
+                                                    itemLabel="#{tamanho.tamanho}  R$ #{tamanho.valorTamanho}0"/>
+
+                                            </h:selectOneRadio>
+                                        </h:panelGroup>
+                                    </div>
+                                    <div class=" input-field col s12 m12 l12">
+                                        <p>Quantidade: 
+                                            <p:inputNumber maxValue="20" required="true" requiredMessage="Digite a quantidade" id="quantBebida"  maxlength="2" value="#{vendaBean.itemVenda.quantItemVenda}"/>                                         
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                        </div>
+                        
+                        <div class="row card-action">
+                            <div class="col s12 center-align">  
+
+                                <p:commandButton value="AdicioneJá"   action="#{vendaBean.adicionarAoCarrinhoModoUsuarioMobile()}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+
+</ui:composition>

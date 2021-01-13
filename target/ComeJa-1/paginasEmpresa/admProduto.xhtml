@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="form1" enctype="">
+            <p:growl autoUpdate="true"></p:growl>
+            <div class="row">
+                <div class="row">
+                    <div class="col s12">
+                        <h3>Produtos - ComeJá</h3>
+                    </div>
+                </div>
+                <div class="modal" id="modal">                        
+                    <div class="modal-content" style="color: #000; input{background-color: yellow};">
+                        <div class="row">
+                            <div class="col s12">
+                                <h3>Cadastro de Produtos</h3>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <p:inputText type="hidden" id="id" value="#{produtoBean.prod.idProduto}"/>                                   
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <p>Nome</p>
+                                    <p:inputText id="nome" value="#{produtoBean.prod.nomeProduto}"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <p>Descrição</p>
+                                    <p:inputText id="desc"
+                                                 label="Descrição" value="#{produtoBean.prod.descricaoProduto}"/>
+                                </div>
+                            </div>     
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <p>Produto Alcoólico</p>
+                                    <p:selectBooleanCheckbox id="alcoolico" value="#{produtoBean.prod.alcoolico}"/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">                                         
+                                    <p:dataTable id="listaTamanhos" emptyMessage="" value="#{tamanhoBean.listaTamanho}" var="tam">
+                                        <p:column class="center-align" priority="1" headerText="Tamanho">
+                                            <h:outputText value="#{tam.tamanho}"/>
+                                        </p:column>
+                                        <p:column class="center-align" priority="1" headerText="Valor">
+                                            <h:outputText value="#{tam.valorTamanho}">
+                                                <f:convertNumber maxFractionDigits="2" currencySymbol="R$" type="currency" minFractionDigits="2" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column class="center-align" priority="1" headerText="Ações">
+                                            <p:commandButton value="Remover" update="listaTamanhos" action="#{tamanhoBean.removerTamanho(tam)}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                    <div class="input-field">
+                                        <p>Tamanho</p>
+                                        <p:inputText id="tituloTamanho" value="#{tamanhoBean.tamanho.tamanho}"/>
+                                        <p>Valor</p>
+                                        <h:inputText id="valorTamanho"  value="#{tamanhoBean.tamanho.valorTamanho}">
+                                            <f:convertNumber pattern="#,##0.00"></f:convertNumber> 
+                                        </h:inputText>
+                                        <p:commandButton value="Adicionar" update="listaTamanhos, tituloTamanho, valorTamanho" action="#{tamanhoBean.adicionarTamanho()}"/>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <p>Categoria</p>
+                                    <p:selectOneButton id="categoria" converter="categoriaConverter" label="Categoria" value="#{produtoBean.prod.categoriaProduto}">
+                                        <f:selectItems 
+                                            value="#{loginBean.pessoaAtual.categorias}"
+                                            var="categoria" itemValue="#{categoria}"
+                                            itemLabel="#{categoria.tituloCategoria}">
+
+                                        </f:selectItems>
+                                    </p:selectOneButton>
+                                </div>
+                            </div>  
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <p>Ingredientes</p>
+                                    <h:panelGroup layout="block" styleClass="selection">
+                                        <h:selectManyCheckbox 
+                                            id="ingrediente"                                                           
+                                            converter="ingredienteConverter"  
+                                            label="Ingrediente"   
+                                            layout="pageDirection"                                           
+                                            value="#{produtoBean.prod.ingredientesProduto}">
+
+                                            <f:selectItems 
+                                                value="#{ingredienteBean.listarIngrediente()}"
+                                                var="ingrediente" itemValue="#{ingrediente}"
+                                                itemLabel="#{ingrediente.nomeIngrediente}"/>
+
+                                        </h:selectManyCheckbox>
+                                    </h:panelGroup>
+                                </div>
+                            </div> 
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <p>Foto</p>
+                                    <div class="col s12 l6 m6">
+                                        <p:inputText type="hidden" id="imagemProduto" value="#{produtoBean.prod.imagemProduto}"/>
+                                        <p:fileUpload id="upload" update="imagem, imagemProduto" label="Selecionar..." skinSimple="true" mode="advanced"
+                                                      fileUploadListener="#{produtoBean.upload}" auto="true"></p:fileUpload>                                                     
+                                    </div>
+                                    <div class="col s12 l6 m6">
+                                        <p:graphicImage id="imagem" width="150" height="150" value="../imagens/#{produtoBean.prod.imagemProduto}" />
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="row" style="text-align: center;">
+                                <div class="input-field col s12">                                        
+                                    <p:commandButton update=":form1:listaProduto" value="Salvar" action="#{produtoBean.salvar}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-field col s12 m8 l8">
+                    <h:outputLabel value="Filtrar"/>
+                    <p:inputText value="#{listaProdutoEmpresaBean.filtro.descricao}"/>                        
+                </div>
+                <div class="col s12 m4 l4">
+                    <p:commandButton value="Consultar" update="listaProduto"/>
+                </div>
+                <div class="col s12 center-align">
+                    <p:dataTable emptyMessage="Nenhum produto encontrado" value="#{listaProdutoEmpresaBean.model}" paginator="true" lazy="true" rows="5" id="listaProduto"
+                                 tableStyle="table-layout:auto;width:100%;" var="produto"   >
+                        <p:column headerText="Nome" class="center-align" priority="1">
+                            <p:outputLabel value="#{produto.nomeProduto}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Categoria" class="center-align" priority="3">
+                            <p:outputLabel value="#{produto.categoriaProduto.tituloCategoria}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Status" class="center-align" priority="3">
+                            <p:outputLabel value="#{produto.statusProduto}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Valor" class="center-align" priority="2">
+                            <p:dataGrid columns="1" layout="grid" value="#{produto.tamanhos}" var="tam">
+                                <p:column headerText="Valor">     
+                                    <p:outputLabel value="#{tam.valorTamanho}">
+                                        <f:convertNumber maxFractionDigits="2" currencySymbol="R$" type="currency" minFractionDigits="2" />
+                                    </p:outputLabel>
+                                </p:column>
+                            </p:dataGrid>
+                        </p:column>
+                        <p:column headerText="Imagem" class="center-align" priority="2">
+                            <p:graphicImage id="imagem" width="100" height="100" value="../imagens/#{produto.imagemProduto}" />
+                        </p:column>
+                        <p:column headerText="Ações" class="center-align" priority="1">                            
+                            <p:commandButton update=":form1:id, :form1:nome, form1:imagemProduto, form1:alcoolico, :form1:imagem, :form1:desc, :form1:categoria, :form1:ingrediente, :form1:upload, :form1:listaProduto, :form1:tituloTamanho, :form1:valorTamanho, :form1:listaTamanhos"
+                                             action="#{produtoBean.carregar(produto.idProduto)}" value="Carregar"/>
+                            <p:commandButton update=":form1:listaProduto" 
+                                             action="#{produtoBean.alterarStatus(produto)}" value="#{produto.statusProduto}"/>
+
+                        </p:column>
+                    </p:dataTable>
+                </div>
+
+                <div class="row col s12" align="right">
+                    <p:commandButton ajax="true" update=":form1:id, :form1:nome, form1:alcoolico, form1:imagemProduto, :form1:imagem, :form1:desc, :form1:categoria, :form1:ingrediente, :form1:upload, :form1:listaProduto, :form1:tituloTamanho, :form1:valorTamanho, :form1:listaTamanhos" value="Adicionar" action="#{produtoBean.limparCampos()}"/>
+                </div>
+
+            </div>
+
+        </h:form>
+
+
+
+    </ui:define>
+
+</ui:composition>

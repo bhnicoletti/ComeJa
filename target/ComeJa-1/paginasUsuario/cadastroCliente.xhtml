@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title"><title>ComeJá - Casdastro Cliente</title></ui:define>
+    <ui:define name="content">
+        <br></br>
+        <p:growl autoUpdate="true"></p:growl>
+        <div class="row">
+            <div class="col s12">
+                <h3>Cadastro Cliente</h3>
+            </div>
+            <h:form class="col s12">
+                <div class="row">
+                    <div class="input-field col s12 m12 l12">
+                        <i class="material-icons prefix">account_circle</i>
+                        <p:inputText id="nome" requiredMessage="Digite seu Nome" required="true" value="#{pessoaBean.pessoa.nomeFantasiaPessoa}"/>
+                        <h:outputLabel for="nome" value="Nome"/>
+                    </div>
+                    
+
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6 l6">
+                        <i class="material-icons prefix">phone</i>   
+                        <p:inputMask  
+                            value="#{pessoaBean.pessoa.celularPessoa}"
+                            mask="(99) 99999-9999"
+                            requiredMessage="Digite seu Celular"
+                            required="true"
+                            id="celular"/>
+                          <h:outputLabel for="celular" value="Telefone Celular"/>
+                    </div>
+
+                    <div class="input-field col s12 m6 l6">
+                        <i class="material-icons prefix">phone</i>   
+                        <p:inputMask  
+                            id="telefone"
+                            value="#{pessoaBean.pessoa.telefonePessoa}"
+                            mask="(99) 9999-9999" />
+                        <h:outputLabel for="telefone" value="Telefone Fixo"/>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6 l6">  
+                        <i class="material-icons prefix">https</i>   
+                        <p:inputText type="password" required="true" requiredMessage="Digite sua Senha" value="#{pessoaBean.senha}"  id="senha"/>
+                        <h:outputLabel for="senha" value="Senha"/>
+                    </div>
+
+                    <div class="input-field col s12 m6 l6">  
+                        <i class="material-icons prefix">https</i>   
+                        <p:inputText type="password" required="true" requiredMessage="Digite sua Confirmar Senha" value="#{pessoaBean.confirmasenha}" id="confirmasenha"/>
+                        <h:outputLabel for="confirmasenha" value="Confirmar Senha"/>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="row">
+                    <div class="input-field col s12 m6 l6">
+                        <i class="material-icons prefix">email</i>  
+                        <p:inputText required="true" type="email" requiredMessage="Digite seu Email" id="email" value="#{pessoaBean.pessoa.emailPessoa}"/>
+                        <h:outputLabel for="email" value="Email"/>
+                    </div>
+                    <div class="input-field valid col s12 m6 l6">
+                 
+                        <h:outputLabel value="Data Nascimento"/>
+                        <p:inputMask required="true" mask="99/99/9999" requiredMessage="Digite sua Data de nascimento" id="dataNasc" value="#{pessoaBean.dataNascimento}"/>
+                        
+                    </div>
+                </div>
+
+
+
+                <div class="row" >
+                    <div class="col s2">
+                        <br></br>
+                    </div>
+                    <div class="col s8" style=" height: 200px;overflow: auto;">
+
+                        <p align="justify">
+                            <span><b><center>Termos e Condições</center></b></span>
+                            <br></br>Por favor, pedimos que leia com atenção os termos e condições.
+                            <br></br>Ao se cadastrar no comeja.com.br você ESTÁ DE ACORDO COM AS CONDIÇÕES E TERMOS do nosso Website. Perceba que a recusa destes Termos do Website impedirá que você faça pedidos de produtos por meio do sistema ComeJá (Website/Aplicativo para smartphone).
+                            <br></br>
+                            <br></br><span>1. SERVIÇOS OFERECIDOS</span>
+                            <br></br>1.1. Este TERMO se aplica para regular o uso do serviço oferecido pelo comeja.com.br aos USUÁRIOS, qual seja, possibilitar a escolha, pelos USUÁRIOS, de RESTAURANTES cadastrados e, via on-line, efetivar solicitações para aquisição (e entrega em domicílio e retirada no local) de gêneros alimentícios fornecidos pelos RESTAURANTES, de acordo com o cardápio disponibilizado.
+                            <br></br>1.2. O serviço do comeja.com.br consiste, portanto, em aproximar, através do nosso site ou aplicativo para smartphone, os USUÁRIOS e os RESTAURANTES cadastrados, possibilitando que os USUÁRIOS encaminhem, aos RESTAURANTES, pedidos de entrega de gêneros alimentícios
+                            <br></br>1.3. Desde logo fica esclarecido ao USUÁRIO - o qual se declara ciente - que o serviço oferecido pelo comeja.com.br se relaciona apenas à comercialização de produtos alimentícios, não abarcando portanto o preparo e entrega física (via motoboy ou outros meios) dos produtos, sendo esses itens de responsabilidade exclusiva e integral do RESTAURANTE, a quem deverão ser encaminhadas quaisquer reclamações acerca de problemas decorrentes de vícios nos produtos alimentícios, bem como relativos a sua entrega.
+                            <br></br>
+                            <br></br>
+                            <span>2. CADASTRO</span>
+                            <br></br>2.1. O USUÁRIO, para utilizar os serviços acima descritos, deverá ter capacidade jurídica para atos civis e deverá, necessariamente, prestar as informações exigidas no CADASTRO, assumindo integralmente a responsabilidade (inclusive cível e criminal) pela exatidão e veracidade das informações fornecidas no CADASTRO, que poderá ser verificado, a qualquer momento, pelo comeja.com.br. 
+
+                            <br></br>2.1.1. Em caso de informações incorretas, inverídicas ou não confirmadas, bem assim na hipótese da negativa em corrigi-las ou enviar documentação que comprove a correção, o comeja.com.br se reserva o direito de não concluir o cadastramento em curso ou, ainda, de bloquear o cadastro já existente, impedindo o USUÁRIO de utilizar os serviços on-line até que, a critério do comeja.com.br, a situação de anomalia esteja regularizada. O comeja.com.br se reserva o direito de impedir, a seu critério, novos CADASTROS, ou cancelar os já efetuados, em caso de ser detectada anomalia que, em sua análise, seja revestida de gravidade ou demonstre tentativa deliberada de burlar as regras aqui descritas, obrigatórias para todos os USUÁRIOS. Também agirá o comeja.com.br de tal forma caso verifique descumprimento, pelo USUÁRIO, de qualquer obrigação prevista no presente TERMO. 
+
+                            <br></br>2.2. Efetuado, com sucesso, o CADASTRO, o USUÁRIO terá acesso aos serviços por meio de login e senha, dados esses que se compromete a não divulgar a terceiros, ficando sob sua exclusiva responsabilidade qualquer solicitação de serviço que seja feita com o uso de login e senha de sua titularidade. 
+                            <br></br>
+                            <br></br>
+                            <span>3. OBRIGAÇÕES DO USUÁRIO</span>
+                            <br></br>3.1. Efetuado com sucesso o CADASTRO do USUÁRIO, este se obriga a não divulgar a terceiros login e senha de acesso, nem permitir o uso de tais informações por terceiros, responsabilizando-se pelas consequências do uso de login e senha de sua titularidade.
+
+                            <br></br>3.2. É obrigação do USUÁRIO fornecer informações cadastrais totalmente verídicas e exatas, responsabilizando-se exclusiva e integralmente (em todas as searas jurídicas) por todo o conteúdo por si informado no item CADASTRO, mantendo atualizado e confirmado o endereço para entrega dos produtos encomendados. 
+
+                            <br></br>3.3. O USUÁRIO se obriga, também, a pagar integralmente o preço dos produtos por si solicitados ou encomendados ao RESTAURANTE e efetivamente a si entregues, diretamente ao portador dos produtos encomendados por meio deste site (dinheiro ou outro meio disponibilizado como forma de pagamento pelo RESTAURANTE). 
+
+                            <br></br>3.4. O USUÁRIO menor de 18 anos de idade está ciente de que não poderá encomendar e adquirir, em qualquer hipótese, produtos alcoólicos, responsabilizando-se pela correta informação de sua idade no item CADASTRO. 
+                            <br></br>
+                            <br></br>
+                            <span> 4. OBRIGAÇÕES DO COMEJA.COM.BR </span>
+                            <br></br>4.1. Disponibilizar no site comeja.com.br, bem como em aplicativo para smartphone, espaço virtual que permita ao USUÁRIO devidamente cadastrado efetivar pedidos de compra de gêneros alimentícios anunciados e comercializados pelos RESTAURANTES parceiros, especificando preferências e meios de entrega e pagamento.
+                            <br></br> 4.2. Proteger, por meio de armazenamento em servidores ou quaisquer outros meios magnéticos de alta segurança, a confidencialidade de todas as informações e cadastros relativos aos USUÁRIOS, assim como valores atinentes às operações financeiras advindas da operacionalização dos serviços previstos no presente TERMO. Contudo, não responderá pela reparação de prejuízos que possam ser derivados de apreensão e cooptação de dados por parte de terceiros que, rompendo os sistemas de segurança, consigam acessar essas informações. 
+                            <br></br>
+                            <br></br>
+                            <span> 5. MODIFICAÇÕES DESTE TERMO</span>
+                            <br></br>5.1 O presente TERMO DE USO poderá, a qualquer tempo, ter seu conteúdo, ou parte dele, modificados para adequações e inserções, tudo com vistas ao aprimoramento dos serviços disponibilizados. 
+
+                            <br></br>5.2. As novas condições entrarão em vigência assim que sua veiculada no site, sendo possível ao USUÁRIO manifestar oposição a quaisquer dos termos modificados, desde que o faça por escrito, através do site comeja.com.br, o que gerará o cancelamento de seu CADASTRO. 
+                            <br></br>
+                            <br></br>
+                            <span>6. CANAL DE COMUNICAÇÃO</span>
+                            <br></br>6.1. Para estabelecer contato entre comeja.com.br e o USUÁRIO fica disponibilizado o endereço eletrônico contato@comeja.com.br, sendo certo que o USUÁRIO se obriga, igualmente, a manter em seu cadastro endereço eletrônico atual por intermédio do qual se farão as comunicações a ele dirigidas pelo comeja.com.br, desde logo emprestando-se validade jurídica e efetividade a esse meio eletrônico de troca de informações recíprocas. 
+                            <br></br>
+                            <br></br>
+                            <span>7. ACEITAÇÃO DO TERMO DE USO</span>
+                            <br></br>7.1 O USUÁRIO declara ter lido, entendido e que aceita todas as regras, condições e obrigações estabelecidas no presente TERMO. 
+                            <br></br>
+                            <br></br>
+                            <span> 8. FORO DE ELEIÇÃO</span>
+                            <br></br>8.1. As partes elegem como competente para dirimir eventuais controvérsias que venham a surgir da interpretação e do cumprimento do presente TERMO o foro da Comarca de Jales - SP. 
+                            <br></br>
+                            Jales, 08 de Julho de 2016
+                        </p>
+                    </div>
+                    <div class="col s2">
+                        <br></br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <h:selectBooleanCheckbox id="termos" value="#{pessoaBean.termos}" />
+                        <h:outputLabel for="termos" value="Eu li e aceito os termos e condições de uso do site"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 center-align">
+
+                        <p:commandButton id="botaoenviar" action="#{pessoaBean.salvar()}"  value="Salvar" />
+
+                    </div>
+                </div>
+            </h:form>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

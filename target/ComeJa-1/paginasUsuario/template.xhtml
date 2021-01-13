@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <link type="text/css" rel="stylesheet" href="../resources/css/combined.min.css"  media="screen,projection"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="google-site-verification" content="p3_fa_FCiN5j8vbUQLxCJttMixJmiikQTiNRX7mXPv4" />
+        <meta name="description" content="O ComeJá possibilita ao usuário pedir produtos alimentícios por meio da internet ou aplicativo para smartphone de forma prática, rápida e segura. Esqueça as filas de espera e chamadas telefônicas, peça comida online Já!"/> 
+        <meta name="keywords" content="comeja, comeja jales, comida online jales, pedido de comida online, comida online"/> 
+        <meta name="author" content="Bruno Nicoletti"/> 
+        <link rel="apple-touch-icon" sizes="57x57" href="../resources/imagens/apple-icon-57x57.png"/>
+        <link rel="apple-touch-icon" sizes="60x60" href="../resources/imagens/apple-icon-60x60.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../resources/imagens/apple-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="76x76" href="../resources/imagens/apple-icon-76x76.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../resources/imagens/apple-icon-114x114.png"/>
+        <link rel="apple-touch-icon" sizes="120x120" href="../resources/imagens/apple-icon-120x120.png"/>
+        <link rel="apple-touch-icon" sizes="144x144" href="../resources/imagens/apple-icon-144x144.png"/>
+        <link rel="apple-touch-icon" sizes="152x152" href="../resources/imagens/apple-icon-152x152.png"/>
+        <link rel="apple-touch-icon" sizes="180x180" href="../resources/imagens/apple-icon-180x180.png"/>
+        <link rel="icon" type="image/png" sizes="192x192"  href="../resources/imagens/android-icon-192x192.png"/>
+        <link rel="icon" type="image/png" sizes="32x32" href="../resources/imagens/favicon-32x32.png"/>
+        <link rel="icon" type="image/png" sizes="16x16" href="../resources/imagens/favicon-16x16.png"/>
+        <link rel="manifest" href="../resources/imagens/manifest.json"/>
+        <meta name="msapplication-TileColor" content="#ffffff"/>
+        <meta name="msapplication-TileImage" content="../resources/imagens/ms-icon-144x144.png"/>
+        <meta name="theme-color" content="#ffffff"/>
+        <ui:insert name="title"><title>ComeJá - Pedido de Comida Online | Pedido Comida</title></ui:insert>
+        <!-- Facebook Pixel Code -->
+        <script>
+            !function (f, b, e, v, n, t, s) {
+                if (f.fbq)
+                    return;
+                n = f.fbq = function () {
+                    n.callMethod ?
+                            n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                };
+                if (!f._fbq)
+                    f._fbq = n;
+                n.push = n;
+                n.loaded = !0;
+                n.version = '2.0';
+                n.queue = [];
+                t = b.createElement(e);
+                t.async = !0;
+                t.src = v;
+                s = b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t, s)
+            }(window,
+                    document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '1707380989578643');
+            fbq('track', 'PageView');
+        </script>
+        <noscript><img height="1" width="1" style="display:none"
+                       src="https://www.facebook.com/tr?id=1707380989578643&amp;ev=PageView&amp;noscript=1"
+                       /></noscript>
+        <!-- DO NOT MODIFY -->
+        <!-- End Facebook Pixel Code -->
+    </h:head>
+    <h:body>
+        <p:growl autoUpdate="true"/>
+        <div id="top">
+            <ui:insert name="top">
+                <nav>
+                    <div class="nav-wrapper red ">
+                        <p:link class="left brand-logo hide-on-small-only" style="padding: 0px 0px 0px 50px" outcome="home.jsf">
+                            <p:graphicImage width="140" height="70" library="imagens" name="logo.png"/>
+                        </p:link>
+                        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons white-text">menu</i></a>
+                        <ul class="side-nav" id="mobile-demo">
+                            <li style="background-color: red">
+                                <p:link class="black-text" outcome="home.jsf">
+                                    <p:graphicImage width="140" height="70" library="imagens" name="logo.png"/>
+                                </p:link>
+                            </li>
+                            <li><br></br></li>    
+
+                            <li><p:link class="black-text" disabled="#{loginBean.loggedUsuario}" rendered="#{!loginBean.loggedUsuario}" outcome="login_cadastro" value="Cadastrar/Acessar"/></li>
+                            <li><p:link class="black-text" outcome="pizzarias.jsf" value="Pizzarias"></p:link></li>
+                            <li><p:link class="black-text" outcome="restaurantes.jsf" value="Restaurantes"></p:link></li>
+                            <li><p:link class="black-text" outcome="lanchonetes.jsf" value="Lanchonetes"></p:link></li>
+
+                            <li><a  href="carrinho.jsf"><i class="red-text material-icons">shopping_cart</i>Carrinho<span data-badge-caption="produto" class="new badge red">#{vendaBean.carrinhoCompras.size()}</span></a></li>
+
+                            <hr></hr>
+                            <li><p:link class="black-text" rendered="#{loginBean.loggedUsuario}" outcome="enderecos.jsf" value="Endereços"></p:link></li>
+                            <li><p:link class="black-text"  rendered="#{loginBean.loggedUsuario}" outcome="ultimospedidos.jsf" value="Últimos Pedidos"></p:link></li>
+                            <li><p:link class="black-text"  rendered="#{loginBean.loggedUsuario}" outcome="perfil.jsf" value="Editar Dados"></p:link></li>
+                            <li><p:commandLink value="Sair" rendered="#{loginBean.loggedUsuario}" action="#{loginBean.deslogar()}"></p:commandLink></li>
+                        </ul>
+
+                        <ul class="right hide-on-med-and-down">    
+                            <h:form id="formButtons">
+                                <b>
+                                    <li><p:link class="white-text" outcome="#{loginBean.link}" value="#{loginBean.titulolink}"/></li>
+                                    <li><p:link class="white-text" outcome="restaurantes.jsf" value="Restaurantes"></p:link></li>
+                                    <li><p:link class="white-text" outcome="pizzarias.jsf" value="Pizzarias"></p:link></li>
+                                    <li><p:link class="white-text" outcome="lanchonetes.jsf" value="Lanchonetes"></p:link></li>
+                                    <li><p:link class="white-text" outcome="carrinho.jsf"><i class="white-text center-align material-icons prefix">shopping_cart</i><span data-badge-caption="produto" class="new badge orange">#{vendaBean.carrinhoCompras.size()}</span></p:link></li>
+                                    <button data-target="#{loginBean.modal}" class="btn modal-trigger"><i class="white-text material-icons prefix">account_circle</i></button> 
+                                </b>
+                            </h:form>
+                        </ul>                       
+
+                    </div> 
+                </nav>
+                <div class="red">
+                    <div  class="container section">
+                        <div class="row">
+                            <div class="center col s12 m12 l12">
+                                <h1 class="title white-text">ComeJá</h1>
+                                <h2 class="white-text">Peça comida online Já!</h2>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal" id="modal" style="width: 330px">    
+                    <h:form>
+                        <div class="modal-content">
+                            <div class="row">
+                                <div class="row">
+                                    <div class="s12 input-field">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        <h:outputLabel for="emailLogin" value="Email"/>
+                                        <p:inputText id="emailLogin" value="#{loginBean.email}"/>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="s12 input-field">
+                                        <i class="material-icons prefix">https</i>
+                                        <h:outputLabel for="senhaLogin" value="Senha"/>
+                                        <p:inputText id="senhaLogin" type="password" value="#{loginBean.senha}"/>
+
+                                    </div>                                            
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 center-align">                               
+                                        <p:commandButton value="AcessarJá" action="#{loginBean.logar()}" ></p:commandButton>  
+                                        <br></br>
+                                        <br></br>
+                                        <p:link class="red-text" outcome="cadastroCliente.jsf" value="CadastrarJá"/>
+                                        <br></br>
+                                        <br></br>
+                                        <p:link class="red-text" outcome="recuperarSenha.jsf" value="Recuperar SenhaJá"/>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+
+
+
+                <div class="modal" id="modalLogin" style="width: 330px">  
+                    <h:form>
+                        <div class="modal-content" style="color: #000">
+                            <div class="row">
+                                <div class="col s12">
+                                    <h5>Login: </h5>
+                                    <h:outputText value="#{loginBean.pessoaAtual.nomeFantasiaPessoa}"></h:outputText>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 center-align">        
+
+                                    <p:commandButton value="Sair" action="#{loginBean.deslogar()}" ></p:commandButton>                                
+                                </div>                                    
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+
+            </ui:insert>
+        </div>
+        <div id="content" class="center_content  grey lighten-5 col s12">
+            <ui:insert name="content">Content</ui:insert>
+        </div>
+        <div id="bottom">
+            <ui:insert name="bottom">
+                <footer class="page-footer red">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col l6 s12" align="center">
+                                <h5 class="white-text">Informações de Contato</h5>
+                                <p class="white-text text-lighten-4">Email: 
+                                    contato@comeja.com.br
+                                </p>
+                                <div class="fb-page"
+                                     data-href="https://www.facebook.com/comejaoficial/" 
+                                     data-tabs="timeline" data-width="300" data-height="100" data-small-header="false"
+                                     data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+                                    <blockquote cite="https://www.facebook.com/comejaoficial/" class="fb-xfbml-parse-ignore">
+                                        <a href="https://www.facebook.com/comejaoficial/">ComeJá</a></blockquote></div>
+
+
+
+                            </div>
+                            <div class="col l6 s12" align="center">
+                                <h5 class="white-text">Links</h5>
+                                <ul >
+
+                                    <li><a class="white-text text-lighten-3" href="informacoes.jsf">Informações</a></li>
+                                    <li><a class="white-text text-lighten-3" href="termos.jsf">Termos de uso</a></li>
+                                    <li><a class="white-text text-lighten-3" href="../paginasEmpresa/home.jsf">Área Empresa</a></li>
+                                    <li><a class="white-text text-lighten-3" href="../paginasADM/home.jsf">Área ADM</a></li>
+                                    <li><a class="white-text text-lighten-3" href="../paginasUsuario/cadastroCliente.jsf">CadastrarJá</a></li>
+                                    <li><a class="white-text text-lighten-3" href="https://play.google.com/store/apps/details?id=br.com.nicoletti.comeja">APP ComeJá <p:graphicImage class="circle responsive-img" width="20" height="20" library="imagens" name="android-icon.png"/></a></li>
+                                    <br></br>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-copyright">
+                        <div class="container">
+                            © 2017 Copyright - ComeJá - Todos os direitos reservados / Desenvolvido por Bruno Nicoletti
+                        </div>
+                    </div>
+                </footer>
+            </ui:insert>
+        </div>
+        <script type="text/javascript" src="../resources/js/materialize.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $(".button-collapse").sideNav();
+                $("button").removeClass("ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only");
+                $("button").addClass("waves-light btn btn-large red white-text");
+
+                $('.carousel').carousel();
+                $('h3').addClass('red-text center-align');
+                $('h2').addClass('red-text center-align');
+                $('h5').addClass('red-text');
+                $('h6').addClass('red-text');
+                $('i').addClass('red-text');
+                $('.modal-trigger').leanModal();
+                $("th").css("background-color", "#ffffff");
+                $("th").css("border", "0");
+                $("table").css("border", "0");
+                $('.collapsible').collapsible();
+                $("button").mouseover(function () {
+                    $('button').removeClass("ui-state-hover");
+                });
+
+            });
+            function estilo() {
+                $("button").removeClass("ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only");
+                $("button").addClass("waves-light btn btn-large red white-text");
+                $('h3').addClass('red-text center-align');
+                $('h5').addClass('red-text');
+                $('label').addClass('black-text');
+                $("button").mouseover(function () {
+                    $('button').removeClass("ui-state-hover");
+                });
+            }
+
+            function abreModalEndereco() {
+                $('#modalEndereco').openModal();
+            }
+            function abreModalItens() {
+                $('#modalitens').openModal();
+            }
+            function fechaModalEndereco() {
+                $('#modalEndereco').closeModal()();
+            }
+            function abreModalCliente() {
+                $('#modalCliente').openModal();
+            }
+            function fechaModalCliente() {
+                $('#modalCliente').closeModal()();
+            }
+
+        </script>
+        <div id="fb-root"></div>
+        <script>(function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id))
+                    return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&amp;version=v2.6";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+
+
+    </h:body>
+
+</html>

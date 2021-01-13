@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <link type="text/css" rel="stylesheet" href="resources/css/combined.min.css"  media="screen,projection"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="description" content="Aplicação para fazer pedidos de produtos alimentícios online."/> 
+        <meta name="keywords" content="comeja, comeja jales, comida online jales, pedido de comida online, comida online"/> 
+        <meta name="author" content="Bruno Nicoletti"/> 
+        <link rel="apple-touch-icon" sizes="57x57" href="resources/imagens/apple-icon-57x57.png"/>
+        <link rel="apple-touch-icon" sizes="60x60" href="resources/imagens/apple-icon-60x60.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="resources/imagens/apple-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="76x76" href="resources/imagens/apple-icon-76x76.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="resources/imagens/apple-icon-114x114.png"/>
+        <link rel="apple-touch-icon" sizes="120x120" href="resources/imagens/apple-icon-120x120.png"/>
+        <link rel="apple-touch-icon" sizes="144x144" href="resources/imagens/apple-icon-144x144.png"/>
+        <link rel="apple-touch-icon" sizes="152x152" href="resources/imagens/apple-icon-152x152.png"/>
+        <link rel="apple-touch-icon" sizes="180x180" href="resources/imagens/apple-icon-180x180.png"/>
+        <link rel="icon" type="image/png" sizes="192x192"  href="resources/imagens/android-icon-192x192.png"/>
+        <link rel="icon" type="image/png" sizes="32x32" href="resources/imagens/favicon-32x32.png"/>
+        <link rel="icon" type="image/png" sizes="96x96" href="resources/imagens/favicon-96x96.png"/>
+        <link rel="icon" type="image/png" sizes="16x16" href="resources/imagens/favicon-16x16.png"/>
+        <link rel="manifest" href="resources/imagens/manifest.json"/>
+        <meta name="msapplication-TileColor" content="#ffffff"/>
+        <meta name="msapplication-TileImage" content="resources/imagens/ms-icon-144x144.png"/>
+        <meta name="theme-color" content="#ffffff"/>
+        <title>ComeJá - Pedido de Comida Online</title>
+
+    </h:head>
+    <body>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <div class="row">
+            <div class="col s12 center-align">
+                <p:graphicImage width="220" height="90" library="imagens" name="logo.png"/>
+            </div>
+        </div>
+
+
+        <div class="hide-on-med-and-up">
+            <h:form>
+                <p:growl autoUpdate="true"></p:growl>
+                <div class="modal-content">
+                    <div class="row">
+                        <div class="row">
+                            <div class="s12 input-field">
+                                <i class="material-icons prefix">account_circle</i>
+                                <h:outputLabel for="emailLogin" value="Email"/>
+                                <p:inputText id="emailLogin" value="#{loginBean.email}"/>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="s12 input-field">
+                                <i class="material-icons prefix">https</i>
+                                <h:outputLabel for="senhaLogin" value="Senha"/>
+                                <p:inputText id="senhaLogin" type="password" value="#{loginBean.senha}"/>
+
+                            </div>                                            
+                        </div>
+                        <div class="row">
+                            <div class="col s12 center-align">                               
+                                <p:commandButton value="AcessarJá" action="#{loginBean.logar()}" ></p:commandButton> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+
+        <div class="hide-on-small-only" style="width: 400px; margin: 0 auto">
+            <h:form>
+                <p:growl autoUpdate="true"></p:growl>
+                 <div class="modal-content">
+                    <div class="row">
+                        <div class="row">
+                            <div class="s12 input-field">
+                                <i class="material-icons prefix">account_circle</i>
+                                <h:outputLabel for="emailLogin" value="Email"/>
+                                <p:inputText id="emailLogin" value="#{loginBean.email}"/>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="s12 input-field">
+                                <i class="material-icons prefix">https</i>
+                                <h:outputLabel for="senhaLogin" value="Senha"/>
+                                <p:inputText id="senhaLogin" type="password" value="#{loginBean.senha}"/>
+
+                            </div>                                            
+                        </div>
+                        <div class="row">
+                            <div class="col s12 center-align">                               
+                                <p:commandButton value="AcessarJá" action="#{loginBean.logar()}" ></p:commandButton> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+        <script type="text/javascript" src="resources/js/materialize.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("button").removeClass("ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only");
+                $("button").addClass("waves-light btn btn-large red white-text");
+                $('label').addClass('black-text');
+                $('i').addClass('red-text');
+            });
+        </script>
+    </body>
+</ui:composition>
